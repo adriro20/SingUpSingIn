@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="176.0" layoutY="41.0" prefHeight="538.0" prefWidth="568.0" style="-fx-background-radius: 20px; -fx-background-color: #728378;">
+         <children>
+            <Label fx:id="lblCorreo" layoutX="164.0" layoutY="60.0" prefHeight="17.0" prefWidth="242.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="Correo electrónico" textAlignment="CENTER" />
+            <TextField fx:id="tfCorreo" layoutX="164.0" layoutY="77.0" prefHeight="25.0" prefWidth="242.0" />
+            <Label fx:id="lblContra" layoutX="164.0" layoutY="293.0" prefHeight="17.0" prefWidth="242.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="Contraseña" textAlignment="CENTER" />
+            <Button fx:id="btnRegistrarse" alignment="CENTER" layoutX="210.0" layoutY="442.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" style="-fx-font-weight: bold;" text="Registrarse" />
+            <PasswordField fx:id="pfContra" layoutX="164.0" layoutY="310.0" prefHeight="25.0" prefWidth="242.0" />
+            <Label fx:id="lblContra1" layoutX="164.0" layoutY="355.0" prefHeight="17.0" prefWidth="242.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="Contraseña" textAlignment="CENTER" />
+            <PasswordField fx:id="pfContra2" layoutX="164.0" layoutY="372.0" prefHeight="25.0" prefWidth="242.0" />
+            <TextField fx:id="tfNombre" layoutX="165.0" layoutY="139.0" prefHeight="25.0" prefWidth="242.0" />
+            <Label fx:id="lblNombre" layoutX="165.0" layoutY="113.0" prefHeight="17.0" prefWidth="242.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="Nombre" textAlignment="CENTER" />
+            <TextField fx:id="tfApellido" layoutX="165.0" layoutY="216.0" prefHeight="25.0" prefWidth="242.0" />
+            <Label fx:id="lblApellido" layoutX="165.0" layoutY="192.0" prefHeight="17.0" prefWidth="242.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="Apellido" textAlignment="CENTER" />
+         </children>
+      </Pane>
+   </children>
+</Pane>
