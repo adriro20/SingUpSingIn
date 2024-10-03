@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane prefHeight="600" prefWidth="900" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <ImageView fitHeight="600" fitWidth="900" pickOnBounds="true" preserveRatio="false">
+            <image>
+                <Image url="@/reto1_signupsignin/imgFondo.jpg" />
+            </image>
+      </ImageView>
+      <Pane layoutX="166.0" layoutY="31.0" prefHeight="538.0" prefWidth="568.0" style="-fx-background-radius: 20px; -fx-background-color: #728378;">
+         <children>
+            <Label fx:id="lblCorreo" layoutX="163.0" layoutY="165.0" prefHeight="17.0" prefWidth="242.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="Correo electrónico" textAlignment="CENTER" />
+            <TextField fx:id="tfCorreo" layoutX="163.0" layoutY="182.0" prefHeight="25.0" prefWidth="242.0" />
+            <Label fx:id="lblContra" layoutX="163.0" layoutY="238.0" prefHeight="17.0" prefWidth="242.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="Contraseña" textAlignment="CENTER" />
+            <Button fx:id="btnLogIn" alignment="CENTER" layoutX="209.0" layoutY="348.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" style="-fx-font-weight: bold;" text="Log in" />
+            <PasswordField fx:id="pfContra" layoutX="163.0" layoutY="255.0" prefHeight="25.0" prefWidth="242.0" />
+         </children>
+      </Pane>
+   </children>
+</Pane>
