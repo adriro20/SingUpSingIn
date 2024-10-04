@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="600" prefWidth="900" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="600" prefWidth="900" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.LogInWindowController">
    <children>
        <ImageView fitHeight="600" fitWidth="900" pickOnBounds="true" preserveRatio="false">
             <image>
@@ -35,8 +35,8 @@
                   <Font size="14.0" />
                </font></PasswordField>
             <Label alignment="CENTER" layoutX="141.0" layoutY="473.0" prefHeight="17.0" prefWidth="199.0" style="-fx-font-weight: bold;" text="¿No tienes una cuenta?" />
-            <Button layoutX="345.0" layoutY="469.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" style="-fx-font-weight: bold;" text="Crea una" />
-            <Button layoutX="207.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-font-weight: bold;" text="Log In">
+            <Button fx:id="btnLogIn" layoutX="345.0" layoutY="469.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" style="-fx-font-weight: bold;" text="Crea una" onAction="#logIn"/>
+            <Button fx:id="btnCrear" layoutX="207.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-font-weight: bold;" text="Log In" onAction="#signUp">
                <font>
                   <Font size="14.0" />
                </font>
