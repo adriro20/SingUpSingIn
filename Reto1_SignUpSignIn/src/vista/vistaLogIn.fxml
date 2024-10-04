@@ -13,7 +13,7 @@
    <children>
        <ImageView fitHeight="600" fitWidth="900" pickOnBounds="true" preserveRatio="false">
             <image>
-                <Image url="@/reto1_signupsignin/imgFondo.jpg" />
+                <Image url="@/img/imgFondo.jpg" />
             </image>
       </ImageView>
       <Pane layoutX="166.0" layoutY="31.0" prefHeight="538.0" prefWidth="568.0" style="-fx-background-radius: 20px; -fx-background-color: #728378;">
