@@ -5,7 +5,6 @@
  */
 package vista;
 
-import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,10 +15,11 @@ import javafx.stage.Stage;
  *
  * @author 2dam
  */
-public class Main extends Application{
+public class Main extends javafx.application.Application{
     
     @Override
     public void start(Stage stage) throws Exception {
+        
         Parent root = FXMLLoader.load(getClass().getResource("vistaLogIn.fxml"));
         
         Scene scene = new Scene(root);

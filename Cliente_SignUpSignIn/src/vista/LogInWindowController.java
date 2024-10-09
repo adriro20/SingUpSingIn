@@ -5,16 +5,19 @@
  */
 package vista;
 
-import java.awt.Button;
-import java.awt.TextField;
+import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
+
 
 /**
  *
@@ -22,30 +25,49 @@ import javafx.scene.control.PasswordField;
  */
 public class LogInWindowController implements Initializable{
     
+
+    @FXML
+    Button btnSalir;
+    
+    @FXML
+    Hyperlink hlSignIn;
+    
+    @FXML
+    Hyperlink hlSignUp;
+    
     @FXML
     TextField tfCorreo;
     
     @FXML
-    PasswordField pfContra;
+    PasswordField pfPass;
     
     @FXML
-    Button btnLogIn;
-        
-    @FXML
-    Button btnCrear;
+    Button btnVerPass;
     
+    @FXML
+    Button btnSignIn;
+    
+    @FXML
+    Hyperlink hlCrear;
+    
+    @FXML
+    TextField tfPass;
+    
+    
+    @FXML
+    private void closeApp(ActionEvent event){
+        Platform.exit();
+    }
     
     @FXML
     private void logIn(ActionEvent event) {
-        if(tfCorreo.getText().equals("") || pfContra.getText().equals("")){
+        if(tfCorreo.getText().equals("") || pfPass.getText().equals("")){
             new Alert(Alert.AlertType.ERROR, "Todos los campos tienen que estar llenos", ButtonType.OK).showAndWait();
         }else{
-            UserLogIn user = new UserLogIn();
-            user.setCorreo(tfCorreo.getText());
-            user.setContra(pfContra.getText());
+//            User user = new User();
+//            user.setCorreo(tfCorreo.getText());
+//            user.setContra(pfPass.getText());
         }
-        
-        
 
     }
     
@@ -55,10 +77,23 @@ public class LogInWindowController implements Initializable{
 
     }
     
-
+    @FXML
+    private void verPass(ActionEvent event) {
+        if(tfPass.isVisible()){
+            pfPass.setText(tfPass.getText());            
+            pfPass.setVisible(true);
+            tfPass.setVisible(false);
+        }else{
+            tfPass.setText(pfPass.getText());
+            tfPass.setVisible(true);
+            pfPass.setVisible(false);           
+        }
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         
     }
+
     
 }

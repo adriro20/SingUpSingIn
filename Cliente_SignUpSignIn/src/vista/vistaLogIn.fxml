@@ -8,10 +8,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.LogInWindowController">
    <top>
       <HBox prefHeight="2.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,12 +22,13 @@
                   <Label text="SignIn">
                      <font>
                         <Font size="18.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="78.0" prefWidth="74.0">
                <children>
-                  <Button mnemonicParsing="false" text="Salir" />
+                  <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#closeApp" text="Salir" />
                </children>
             </HBox>
          </children>
@@ -35,8 +37,8 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-spacing: 10;" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink text="SignIn" />
-            <Hyperlink text="SignUp" />
+            <Hyperlink fx:id="hlSignIn" text="SignIn" />
+            <Hyperlink fx:id="hlSignUp" onAction="#signUp" text="SignUp" />
          </children>
       </VBox>
    </left>
@@ -46,20 +48,30 @@
             <VBox alignment="CENTER" prefHeight="43.0" prefWidth="158.0">
                <children>
                   <Label text="Correo eléctronico" />
-                  <TextField prefHeight="26.0" prefWidth="50" />
+                  <TextField fx:id="tfCorreo" prefHeight="26.0" prefWidth="50" promptText="Introduce el correo eléctronico" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="0.0" prefWidth="500.0">
                <children>
                   <Label text="Contraseña" />
-                  <PasswordField prefHeight="26.0" prefWidth="50"/>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="tfPass" prefHeight="26.0" prefWidth="275.0" visible="false" />
+                              <PasswordField fx:id="pfPass" prefHeight="26.0" prefWidth="275.0" promptText="Introduce la contraseña" />
+                           </children>
+                        </StackPane>
+                        <Button fx:id="btnVerPass" mnemonicParsing="false" onAction="#verPass" text="Ver" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" text="Iniciar sesión" />
+            <Button fx:id="btnSignIn" mnemonicParsing="false" onAction="#logIn" text="Iniciar sesión" />
             <HBox alignment="CENTER" prefHeight="0.0" prefWidth="500.0">
                <children>
                   <Label text="No tienes una cuenta?" />
-                  <Hyperlink text="Crea una" />
+                  <Hyperlink fx:id="hlCrear" onAction="#signUp" text="Crea una" />
                </children>
             </HBox>
          </children>
