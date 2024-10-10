@@ -22,7 +22,7 @@ public class Main extends javafx.application.Application{
     @Override
     public void start(Stage stage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getResource("vistaLogIn.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("vistaSingUp.fxml"));
 
         
         Scene scene = new Scene(root);
