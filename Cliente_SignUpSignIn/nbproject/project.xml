@@ -12,7 +12,7 @@
                 <dependency dependsOn="jar" target="run"/>
             </extension>
         </buildExtensions>
-        <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
+        <data xmlns="http://www.netbeans.org/ns/j2se-project/3"> 
             <name>Cliente_SignUpSignIn</name>
             <source-roots>
                 <root id="src.dir"/>
