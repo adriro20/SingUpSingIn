@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Cliente_SignUpSignIn.jar" size="753520" download="eager" />
+    <jar href="Cliente_SignUpSignIn.jar" size="773278" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Cliente_SignUpSignIn" >
     <param name="requiredFXVersion" value="8.0+"/>

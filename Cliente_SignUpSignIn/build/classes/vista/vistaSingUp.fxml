@@ -6,23 +6,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.SingUpWindowController">
    <top>
       <HBox prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="522.0" style="-fx-spacing: 5;">
                <children>
-                  <ImageView fitHeight="50.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../user-circle.png" />
-                     </image></ImageView>
                   <Label text="SignUp">
                      <font>
                         <Font size="18.0" />
@@ -35,7 +30,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="78.0" prefWidth="74.0">
                <children>
-                  <Button mnemonicParsing="false" text="Salir" />
+                  <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#salir" text="Salir" />
                </children>
             </HBox>
          </children>
@@ -53,7 +48,7 @@
       </VBox>
    </left>
    <center>
-      <VBox alignment="CENTER" prefHeight="350.0" prefWidth="0.0" style="-fx-spacing: 20;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="444.0" prefWidth="497.0" style="-fx-spacing: 20;" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="43.0" prefWidth="477.0">
                <children>
@@ -94,31 +89,34 @@
                   <Label text="Contraseña" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <PasswordField fx:id="pfContra" prefHeight="26.0" prefWidth="444.0" promptText="Introduce tu contraseña">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </PasswordField>
-                        <Button fx:id="btnVerPasswd" mnemonicParsing="false" text="Button" />
+                        <StackPane prefHeight="27.0" prefWidth="440.0">
+                           <children>
+                              <TextField fx:id="tfPass" />
+                              <PasswordField fx:id="pfpass" prefHeight="26.0" prefWidth="416.0" promptText="Introduce una contraseña" />
+                           </children>
+                        </StackPane>
+                        <Button fx:id="btnVerPass" mnemonicParsing="false" onAction="#verPass" text="ver" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="147.0" prefWidth="500.0">
+            <VBox alignment="TOP_CENTER" prefHeight="76.0" prefWidth="497.0">
                <children>
                   <Label text="Contraseña" />
-                  <HBox prefHeight="50.0" prefWidth="497.0">
+                  <HBox prefHeight="32.0" prefWidth="497.0">
                      <children>
-                        <PasswordField fx:id="pfContra2" prefHeight="26.0" prefWidth="445.0" promptText="Repite la contraseña anterior" />
-                        <Button fx:id="btnVerPasswd1" mnemonicParsing="false" text="Button" />
+                        <StackPane prefHeight="16.0" prefWidth="444.0">
+                           <children>
+                              <TextField fx:id="tfPass2" />
+                              <PasswordField fx:id="pfPass2" prefWidth="444.0" promptText="Repite la contraseña anterior" />
+                           </children>
+                        </StackPane>
+                        <Button fx:id="btnVerPass2" mnemonicParsing="false" onAction="#verPass2" prefWidth="33.0" text="ver" />
                      </children>
                   </HBox>
-                  <Button fx:id="btnSingUp" mnemonicParsing="false" text="Registrar" />
                </children>
             </VBox>
+            <Button fx:id="btnSingUp" mnemonicParsing="false" onAction="#singUp" prefWidth="63.0" text="Registrar" />
          </children>
       </VBox>
    </center>
