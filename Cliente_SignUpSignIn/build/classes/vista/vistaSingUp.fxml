@@ -39,7 +39,7 @@
    <left>
       <VBox prefHeight="328.0" prefWidth="100.0" style="-fx-spacing: 10;" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="hlSingIn" text="SignIn" />
+            <Hyperlink fx:id="hlSingIn" onAction="#irSingIn" text="SignIn" />
             <Hyperlink fx:id="hlSingUp" text="SignUp" />
          </children>
          <BorderPane.margin>
@@ -91,8 +91,8 @@
                      <children>
                         <StackPane prefHeight="27.0" prefWidth="440.0">
                            <children>
-                              <TextField fx:id="tfPass" />
-                              <PasswordField fx:id="pfpass" prefHeight="26.0" prefWidth="416.0" promptText="Introduce una contraseña" />
+                              <TextField fx:id="tfPass" promptText="Introduce una contraseña" visible="false" />
+                              <PasswordField fx:id="pfPass" prefHeight="26.0" prefWidth="416.0" promptText="Introduce una contraseña" />
                            </children>
                         </StackPane>
                         <Button fx:id="btnVerPass" mnemonicParsing="false" onAction="#verPass" text="ver" />
@@ -103,20 +103,20 @@
             <VBox alignment="TOP_CENTER" prefHeight="76.0" prefWidth="497.0">
                <children>
                   <Label text="Contraseña" />
-                  <HBox prefHeight="32.0" prefWidth="497.0">
+                  <HBox prefHeight="26.0" prefWidth="489.0">
                      <children>
-                        <StackPane prefHeight="16.0" prefWidth="444.0">
+                        <StackPane prefHeight="26.0" prefWidth="433.0">
                            <children>
-                              <TextField fx:id="tfPass2" />
+                              <TextField fx:id="tfPass2" promptText="Repite la contraseña anterior" visible="false" />
                               <PasswordField fx:id="pfPass2" prefWidth="444.0" promptText="Repite la contraseña anterior" />
                            </children>
                         </StackPane>
-                        <Button fx:id="btnVerPass2" mnemonicParsing="false" onAction="#verPass2" prefWidth="33.0" text="ver" />
+                        <Button fx:id="btnVerPass2" mnemonicParsing="false" onAction="#verPass2" prefHeight="26.0" prefWidth="37.0" text="ver" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="btnSingUp" mnemonicParsing="false" onAction="#singUp" prefWidth="63.0" text="Registrar" />
+            <Button fx:id="btnSingUp" mnemonicParsing="false" onAction="#singUp" prefHeight="26.0" prefWidth="115.0" text="Registrar" />
          </children>
       </VBox>
    </center>
