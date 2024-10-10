@@ -5,6 +5,7 @@
  */
 package vista;
 
+
 import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,13 +19,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 
-
 /**
  *
  * @author 2dam
  */
 public class LogInWindowController implements Initializable{
     
+
 
     @FXML
     Button btnSalir;
@@ -35,10 +36,11 @@ public class LogInWindowController implements Initializable{
     @FXML
     Hyperlink hlSignUp;
     
+
     @FXML
     TextField tfCorreo;
     
-    @FXML
+
     PasswordField pfPass;
     
     @FXML
@@ -69,6 +71,7 @@ public class LogInWindowController implements Initializable{
 //            user.setContra(pfPass.getText());
         }
 
+
     }
     
     @FXML
@@ -77,6 +80,8 @@ public class LogInWindowController implements Initializable{
 
     }
     
+
+
     @FXML
     private void verPass(ActionEvent event) {
         if(tfPass.isVisible()){
