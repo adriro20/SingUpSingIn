@@ -36,11 +36,10 @@ public class LogInWindowController implements Initializable{
     @FXML
     Hyperlink hlSignUp;
     
-
     @FXML
     TextField tfCorreo;
     
-
+    @FXML
     PasswordField pfPass;
     
     @FXML
