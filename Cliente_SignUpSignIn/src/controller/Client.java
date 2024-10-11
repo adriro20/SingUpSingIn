@@ -6,10 +6,10 @@
 package controller;
 
 import clases.Message;
-import static clases.Request.CONNECTIONS;
-import static clases.Request.INTERNAL;
-import static clases.Request.LOG_IN;
-import static clases.Request.USER_EXISTS;
+import static clases.Request.CONNECTIONS_EXCEPTION;
+import static clases.Request.INTERNAL_EXCEPTION;
+import static clases.Request.LOG_IN_EXCEPTION;
+import static clases.Request.USER_EXISTS_EXCEPTION;
 import clases.Signable;
 import excepciones.InternalServerErrorException;
 import excepciones.LogInDataException;
@@ -44,11 +44,11 @@ public class Client implements Signable {
             salida.writeObject(mensaje);
             mensaje = (Message) entrada.readObject();
             switch (mensaje.getRequest()) {
-                case INTERNAL:
+                case INTERNAL_EXCEPTION:
                     throw new InternalServerErrorException();
-                case LOG_IN:
+                case LOG_IN_EXCEPTION:
                     throw new LogInDataException();
-                case CONNECTIONS:
+                case CONNECTIONS_EXCEPTION:
                     throw new NoConnectionsAvailableException();
                 default:
                     return true;
@@ -85,11 +85,11 @@ public class Client implements Signable {
             salida.writeObject(mensaje);
             mensaje = (Message) entrada.readObject();
             switch (mensaje.getRequest()) {
-                case INTERNAL:
+                case INTERNAL_EXCEPTION:
                     throw new InternalServerErrorException();
-                case USER_EXISTS:
+                case USER_EXISTS_EXCEPTION:
                     throw new UserExitsException();
-                case CONNECTIONS:
+                case CONNECTIONS_EXCEPTION:
                     throw new NoConnectionsAvailableException();
                 default:
                     return true;
@@ -126,7 +126,7 @@ public class Client implements Signable {
             salida.writeObject(mensaje);
             mensaje = (Message) entrada.readObject();
             switch (mensaje.getRequest()) {
-                case INTERNAL:
+                case INTERNAL_EXCEPTION:
                     throw new InternalServerErrorException();
                 default:
                     return true;

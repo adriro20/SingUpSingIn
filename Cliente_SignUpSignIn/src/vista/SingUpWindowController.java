@@ -7,9 +7,18 @@ package vista;
 
 
 
+import clases.Message;
+import clases.Request;
+import clases.User;
+import controller.SignableFactory;
+import excepciones.InternalServerErrorException;
+import excepciones.NoConnectionsAvailableException;
+import excepciones.UserExitsException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +29,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -88,6 +96,11 @@ public class SingUpWindowController implements  Initializable{
     @FXML
     Button btnVerPass2;
     
+    /** Campo de texto para ingresar la calle del usuario. */
+    @FXML
+    TextField tfStreet;
+    
+    
     /**
      * Método que gestiona el registro del usuario utilizando los datos
      * proporcionados en los campos de texto. Valida que los campos no estén vacíos,
@@ -98,8 +111,10 @@ public class SingUpWindowController implements  Initializable{
      */
     @FXML
     private void singUp(ActionEvent event){
-          if(tfNombre.getText().equals("") || tfTelefono.getText().equals("") || tfCorreo.getText().equals("")
-                || tfCiudad.getText().equals("") || pfPass.getText().equals("") || pfPass2.getText().equals("")){
+        User user;
+        Message mensaje;
+        if(tfNombre.getText().equals("") || tfTelefono.getText().equals("") || tfCorreo.getText().equals("")
+                || tfCiudad.getText().equals("") || pfPass.getText().equals("") || pfPass2.getText().equals("") || tfStreet.getText().equals("")){
             new Alert(Alert.AlertType.ERROR, "Te Falta algun campo por rellenar", ButtonType.OK).showAndWait();
         }else if(!pfPass.getText().equalsIgnoreCase(pfPass2.getText())){
             new Alert(Alert.AlertType.ERROR, "La contraseña no es igual en los dos campos", ButtonType.OK).showAndWait();
@@ -108,12 +123,41 @@ public class SingUpWindowController implements  Initializable{
         }else if(!tfCorreo.getText().matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")){
             new Alert(Alert.AlertType.ERROR, "Ese correo electronico no es valido", ButtonType.OK).showAndWait();
         }else{
-            /*Usuario user;
-            user.setNombre(tfNombre.getText());
-            user.setTelefono(tfTelefono.getText());
-            user.setCorreo(tfCiudad.getText());
-            user.setCorreo(tfCorreo.getText());
-            user.setContra(pfContra.getText());*/
+            user = new User();
+            mensaje = new Message();
+            user.setName(tfNombre.getText());
+            user.setMobile(tfTelefono.getText());
+            user.setCity(tfCiudad.getText());
+            user.setStreet(tfStreet.getText());
+            user.setEmail(tfCorreo.getText());
+            user.setPassword(pfPass.getText());
+            
+            mensaje.setUser(user);
+            mensaje.setRequest(Request.SING_UP_REQUEST);
+            
+            try {
+                if(SignableFactory.getSignable().signUp(mensaje)){
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaMain.fxml"));
+                    Parent root = loader.load();
+
+                    // Obtener el Stage desde el nodo que disparó el evento
+                    Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+                    // Crear una nueva escena con el contenido cargado
+                    Scene scene = new Scene(root);
+
+                    // Establecer la nueva escena en el Stage
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            } catch (IOException ex){
+                Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
+            } catch (InternalServerErrorException | UserExitsException | NoConnectionsAvailableException ex) {
+                Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();
+            }
+            
         }
     }
     

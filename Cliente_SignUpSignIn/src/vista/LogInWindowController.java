@@ -128,7 +128,7 @@ public class LogInWindowController implements Initializable {
             user.setPassword(pfPass.getText());
 
             mensaje.setUser(user);
-            mensaje.setRequest(Request.LOG_IN);
+            mensaje.setRequest(Request.SING_IN_REQUEST);
 
             try {
                 if (SignableFactory.getSignable().signIn(mensaje)) {

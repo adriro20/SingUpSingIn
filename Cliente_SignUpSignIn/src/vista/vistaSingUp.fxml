@@ -63,7 +63,7 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="62.0" prefWidth="497.0">
+            <VBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="497.0">
                <children>
                   <Label text="Telefono" />
                   <TextField fx:id="tfTelefono" promptText="Introduce tu numero de telefono" />
@@ -78,10 +78,16 @@
                      </VBox.margin></TextField>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="497.0">
+            <VBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="497.0">
                <children>
                   <Label text="Ciudad" />
                   <TextField fx:id="tfCiudad" prefHeight="26.0" prefWidth="480.0" promptText="Introduce la ciudad donde vives" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="497.0">
+               <children>
+                  <Label text="Calle" />
+                  <TextField fx:id="tfStreet" prefHeight="26.0" prefWidth="480.0" promptText="Introduce la calle donde vives" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="0.0" prefWidth="500.0">
@@ -100,7 +106,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="76.0" prefWidth="497.0">
+            <VBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="497.0">
                <children>
                   <Label text="Contraseña" />
                   <HBox prefHeight="26.0" prefWidth="489.0">
