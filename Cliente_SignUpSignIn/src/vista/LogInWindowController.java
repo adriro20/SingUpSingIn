@@ -124,8 +124,8 @@ public class LogInWindowController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Todos los campos tienen que estar llenos", ButtonType.OK).showAndWait();
         } else {
             User user = new User();
-            user.setCorreo(tfCorreo.getText());
-            user.setPass(pfPass.getText());
+            user.setEmail(tfCorreo.getText());
+            user.setPassword(pfPass.getText());
 
             mensaje.setUser(user);
             mensaje.setRequest(Request.LOG_IN);
