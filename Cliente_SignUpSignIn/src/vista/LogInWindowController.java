@@ -7,7 +7,7 @@ package vista;
 
 import clases.Message;
 import clases.Request;
-import clases.SignableFactory;
+import controller.SignableFactory;
 import clases.User;
 import excepciones.InternalServerErrorException;
 import excepciones.LogInDataException;
