@@ -97,18 +97,17 @@ public class LogInWindowController implements Initializable {
      */
     @FXML
     TextField tfPass;
-
+    
     /**
      * Cierra la aplicación.
      *
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * botón "Salir".
      */
-    @FXML
     private void closeApp(ActionEvent event) {
         Platform.exit();
     }
-
+    
     /**
      * Método para manejar el inicio de sesión. Valida que el campo de correo y
      * el de contraseña estén llenos antes de proceder con el inicio de sesión.
@@ -215,7 +214,7 @@ public class LogInWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Método vacío, no es necesaria ninguna inicialización específica por el momento.
+        btnSalir.setOnAction(this::closeApp);
     }
 
 }
