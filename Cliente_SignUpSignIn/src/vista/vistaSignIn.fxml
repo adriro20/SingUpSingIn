@@ -70,13 +70,13 @@
                                                         <Image url="@/img/iconoContrasena.png" />
                                                     </image>
                                                 </ImageView>
-                                    <StackPane prefHeight="27.0" prefWidth="282.0">
-                                       <children>
-                                                      <PasswordField fx:id="pfPass" prefHeight="26.0" prefWidth="283.0" promptText="Introduce la contraseña" />
-                                          <TextField fx:id="tfPass" prefHeight="26.0" prefWidth="288.0" visible="false" />
-                                       </children>
-                                    </StackPane>
-                                                <Button fx:id="btnVerPass" mnemonicParsing="false" prefHeight="26.0" prefWidth="42.0" style="-fx-background-image: url('/img/iconoOjoAbierto.png'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;" />
+                                                <StackPane prefHeight="27.0" prefWidth="282.0">
+                                                    <children>
+                                                        <PasswordField fx:id="pfPass" prefHeight="26.0" prefWidth="283.0" promptText="Introduce la contraseña" />
+                                                        <TextField fx:id="tfPass" prefHeight="26.0" prefWidth="288.0" visible="false" promptText="Introduce la contraseña" />
+                                                    </children>
+                                                </StackPane>
+                                                <Button fx:id="btnVerPass" mnemonicParsing="false" prefHeight="26.0" prefWidth="42.0" style="-fx-background-image: url('/img/iconoOjoAbierto.png'); -fx-background-size: contain; -fx-background-position: center; -fx-background-repeat: no-repeat;" />
                                             </children>
                                         </HBox>
                                     </children>

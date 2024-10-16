@@ -15,6 +15,7 @@ import excepciones.NoConnectionsAvailableException;
 import java.io.IOException;
 import javafx.scene.control.TextField;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -97,7 +98,7 @@ public class LogInWindowController implements Initializable {
      */
     @FXML
     TextField tfPass;
-    
+
     /**
      * Cierra la aplicación.
      *
@@ -105,9 +106,13 @@ public class LogInWindowController implements Initializable {
      * botón "Salir".
      */
     private void closeApp(ActionEvent event) {
-        Platform.exit();
+        Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
+        if(confirmar.get() == ButtonType.YES){
+            Platform.exit();
+        }
+        
     }
-    
+
     /**
      * Método para manejar el inicio de sesión. Valida que el campo de correo y
      * el de contraseña estén llenos antes de proceder con el inicio de sesión.
@@ -116,8 +121,7 @@ public class LogInWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * botón "Sign In".
      */
-    @FXML
-    private void logIn(ActionEvent event) {
+    private void signIn(ActionEvent event) {
         Message mensaje = new Message();
         if (tfCorreo.getText().equals("") || pfPass.getText().equals("")) {
             new Alert(Alert.AlertType.ERROR, "Todos los campos tienen que estar llenos", ButtonType.OK).showAndWait();
@@ -144,7 +148,7 @@ public class LogInWindowController implements Initializable {
                     stage.setScene(scene);
                     stage.show();
                 }
-            } catch (IOException ex){
+            } catch (IOException ex) {
                 Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
             } catch (InternalServerErrorException | LogInDataException | NoConnectionsAvailableException ex) {
@@ -163,18 +167,17 @@ public class LogInWindowController implements Initializable {
      * @throws IOException Si ocurre un error al cargar el archivo FXML de la
      * vista de Sign Up.
      */
-    @FXML
     private void signUp(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSingUp.fxml"));
             Parent root = loader.load();
-            
+
             // Obtener el Stage desde el nodo que disparó el evento
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            
+
             // Crear una nueva escena con el contenido cargado
             Scene scene = new Scene(root);
-            
+
             // Establecer la nueva escena en el Stage
             stage.setScene(scene);
             stage.show();
@@ -192,16 +195,19 @@ public class LogInWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * botón "Ver Pass".
      */
-    @FXML
     private void verPass(ActionEvent event) {
+        String estilo = btnVerPass.getStyle();
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
         if (tfPass.isVisible()) {
             pfPass.setText(tfPass.getText());
             pfPass.setVisible(true);
             tfPass.setVisible(false);
+            btnVerPass.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoAbierto.png');");
         } else {
             tfPass.setText(pfPass.getText());
             tfPass.setVisible(true);
             pfPass.setVisible(false);
+            btnVerPass.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoCerrado.png');");
         }
     }
 
@@ -215,6 +221,10 @@ public class LogInWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnSalir.setOnAction(this::closeApp);
+        btnVerPass.setOnAction(this::verPass);
+        btnSignIn.setOnAction(this::signIn);
+        hlSignUp.setOnAction(this::signUp);
+        hlCrear.setOnAction(this::signUp);
     }
 
 }
