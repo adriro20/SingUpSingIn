@@ -14,6 +14,7 @@ import controller.SignableFactory;
 import excepciones.InternalServerErrorException;
 import excepciones.NoConnectionsAvailableException;
 import excepciones.UserExitsException;
+import static java.awt.SystemColor.text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +33,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 /**
@@ -54,7 +57,7 @@ public class SingUpWindowController implements  Initializable{
     
     /** Campo de texto para ingresar el número de teléfono del usuario. */
     @FXML
-    TextField tfTelefono;
+    TextField tfZip;
     
     /** Campo de texto para ingresar el correo electrónico del usuario. */
     @FXML
@@ -100,6 +103,9 @@ public class SingUpWindowController implements  Initializable{
     @FXML
     TextField tfStreet;
     
+    /**Campo para saber si el usuario esta activo o no*/
+    @FXML
+    CheckBox cbActive;
     
     /**
      * Método que gestiona el registro del usuario utilizando los datos
@@ -113,25 +119,27 @@ public class SingUpWindowController implements  Initializable{
     private void singUp(ActionEvent event){
         User user;
         Message mensaje;
-        if(tfNombre.getText().equals("") || tfTelefono.getText().equals("") || tfCorreo.getText().equals("")
+        if(tfNombre.getText().equals("") || tfZip.getText().equals("") || tfCorreo.getText().equals("")
                 || tfCiudad.getText().equals("") || pfPass.getText().equals("") || pfPass2.getText().equals("") || tfStreet.getText().equals("")){
             new Alert(Alert.AlertType.ERROR, "Te Falta algun campo por rellenar", ButtonType.OK).showAndWait();
+        }else if(pfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")){
+             new Alert(Alert.AlertType.ERROR, "La contraseña no es valida", ButtonType.OK).showAndWait();
         }else if(!pfPass.getText().equalsIgnoreCase(pfPass2.getText())){
             new Alert(Alert.AlertType.ERROR, "La contraseña no es igual en los dos campos", ButtonType.OK).showAndWait();
-        }else if(tfTelefono.getText().length()!=8 || !tfTelefono.getText().matches("\\d+")){
-            new Alert(Alert.AlertType.ERROR, "El numero de telefono no es correcto", ButtonType.OK).showAndWait();
+        }else if(tfZip.getText().length()!=5 || !tfZip.getText().matches("\\d+")){
+            new Alert(Alert.AlertType.ERROR, "Codigo Postal Incorrecto", ButtonType.OK).showAndWait();
         }else if(!tfCorreo.getText().matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")){
             new Alert(Alert.AlertType.ERROR, "Ese correo electronico no es valido", ButtonType.OK).showAndWait();
         }else{
             user = new User();
             mensaje = new Message();
             user.setName(tfNombre.getText());
-            user.setMobile(tfTelefono.getText());
+            user.setZip(tfZip.getText());
             user.setCity(tfCiudad.getText());
             user.setStreet(tfStreet.getText());
             user.setEmail(tfCorreo.getText());
             user.setPassword(pfPass.getText());
-            
+            user.setActive(cbActive.isSelected());
             mensaje.setUser(user);
             mensaje.setRequest(Request.SING_UP_REQUEST);
             
@@ -230,6 +238,16 @@ public class SingUpWindowController implements  Initializable{
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       
+       Tooltip tooltip = new Tooltip("Nombre y Dos Apellidos");  
+       tfNombre.setTooltip(tooltip);
+       Tooltip tooltip2 = new Tooltip("Correo valido que termine @gmail.com");  
+       tfCorreo.setTooltip(tooltip2);
+       Tooltip tooltip3 = new Tooltip("Introduce solo numeros");  
+       tfZip.setTooltip(tooltip3);
+        Tooltip tooltip4 = new Tooltip("Minimo 6 caracteres minimo una letra mayuscula y otra minuscula y un numero");  
+       tfPass.setTooltip(tooltip4);
+       pfPass.setTooltip(tooltip4);
+       tfPass2.setTooltip(tooltip4);
+       pfPass2.setTooltip(tooltip4);
     }
 }
