@@ -222,7 +222,7 @@ public class SingUpWindowController implements  Initializable{
      */
     @FXML
     private void irSingIn(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaLogIn.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSignIn.fxml"));
         Parent root = loader.load();
 
         // Obtener el Stage desde el botón que disparó el evento
