@@ -221,19 +221,24 @@ public class SingUpWindowController implements  Initializable{
      * Metodo para cambiar de ventana llendo a la vista vistaLogIn
      */
     @FXML
-    private void irSingIn(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSignIn.fxml"));
-        Parent root = loader.load();
+    private void irSingIn(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSignIn.fxml"));
+            Parent root = loader.load();
 
-        // Obtener el Stage desde el botón que disparó el evento
-        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            // Obtener el Stage desde el botón que disparó el evento
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-        // Crear una nueva escena con el contenido cargado
-        Scene scene = new Scene(root);
+            // Crear una nueva escena con el contenido cargado
+            Scene scene = new Scene(root);
 
-        // Establecer la nueva escena en el Stage
-        stage.setScene(scene);
-        stage.show();
+            // Establecer la nueva escena en el Stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
+        }
     }
     
     @Override
