@@ -9,174 +9,210 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane fx:id="bpPrincipal" maxHeight="700.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.SignUpWindowController">
-   <children>
-      <VBox alignment="CENTER" layoutX="91.0" layoutY="69.0" prefHeight="574.0" prefWidth="564.0" style="-fx-spacing: 20;">
-         <children>
-            <VBox alignment="TOP_CENTER" prefHeight="38.0" prefWidth="627.0">
-               <children>
-                  <Label text="Nombre y Apellido" />
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-centro-30.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
+<BorderPane fx:id="bpPrincipal" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.SignUpWindowController">
+    <top>
+        <HBox spacing="769.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox spacing="10.0">
+                    <children>
+                        <Hyperlink fx:id="hlSignIn" text="Iniciar Sesión" />
+                        <Hyperlink fx:id="hlSignUp" text="Registrarse" />
+                    </children>
+                </HBox>
+                <Button fx:id="btnSalir" mnemonicParsing="false" text="Salir" />
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <StackPane prefHeight="392.0" prefWidth="620.0" style="-fx-background-image: url('/img/imgFondo.jpg'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2; -fx-background-radius: 50;" StackPane.alignment="CENTER">
+                    <StackPane.margin>
+                        <Insets bottom="40.0" left="100.0" right="100.0" top="40.0" />
+                    </StackPane.margin>
+                    <children>
+                        <ImageView fitHeight="67.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/img/logoG1Edit.png" />
+                            </image>
+                            <VBox.margin>
+                                <Insets bottom="30.0" left="30.0" right="30.0" />
+                            </VBox.margin>
                         </ImageView>
-                        <TextField fx:id="tfNombre" prefHeight="26.0" prefWidth="480.0" promptText="Introduce tu nombre y apelldio">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </TextField>
-                     </children>
-                  </HBox>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="43.0" prefWidth="471.0">
-               <children>
-                  <Label text="Correo eléctronico" />
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-correo-50.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <TextField fx:id="tfCorreo" prefHeight="26.0" prefWidth="480.0" promptText="Introduce tu email" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="497.0">
-               <children>
-                  <Label text="Ciudad" />
-                  <HBox alignment="TOP_CENTER" prefHeight="114.0" prefWidth="564.0">
-                     <children>
-                        <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-centro-30.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <TextField fx:id="tfCiudad" prefHeight="26.0" prefWidth="480.0" promptText="Introduce la ciudad donde vives" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="497.0">
-               <children>
-                  <Label text="Calle" />
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-casa-64.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <TextField fx:id="tfStreet" prefHeight="26.0" prefWidth="480.0" promptText="Introduce la calle donde vives" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="497.0">
-               <children>
-                  <Label text="Codigo Postal" />
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-postal-50.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <TextField fx:id="tfZip" prefHeight="26.0" prefWidth="480.0" promptText="Introduce tu codigo postal" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="0.0" prefWidth="500.0">
-               <children>
-                  <Label text="Contraseña" />
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-centro-30.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <StackPane prefHeight="27.0" prefWidth="440.0">
-                           <children>
-                              <TextField fx:id="tfPass" promptText="Introduce una contraseña" visible="false" />
-                              <PasswordField fx:id="pfPass" prefHeight="26.0" prefWidth="440.0" promptText="Introduce una contraseña" />
-                           </children>
-                        </StackPane>
-                        <Button fx:id="btnVerPass" mnemonicParsing="false" onAction="#verPass" prefHeight="26.0" prefWidth="37.0" text="ver" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="497.0">
-               <children>
-                  <Label text="Contraseña" />
-                  <HBox alignment="TOP_CENTER" prefHeight="26.0" prefWidth="489.0">
-                     <children>
-                        <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-centro-30.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <StackPane prefHeight="26.0" prefWidth="444.0">
-                           <children>
-                              <TextField fx:id="tfPass2" promptText="Repite la contraseña anterior" visible="false" />
-                              <PasswordField fx:id="pfPass2" prefHeight="26.0" prefWidth="444.0" promptText="Repite la contraseña anterior" />
-                           </children>
-                        </StackPane>
-                        <Button fx:id="btnVerPass2" mnemonicParsing="false" onAction="#verPass2" prefHeight="26.0" prefWidth="37.0" text="ver" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <CheckBox fx:id="cbActive" alignment="TOP_LEFT" mnemonicParsing="false" text="Usuario activo" />
-            <Button fx:id="btnSingUp" mnemonicParsing="false" onAction="#singUp" prefHeight="26.0" prefWidth="115.0" text="Registrar">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Button>
-         </children>
-      </VBox>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="722.0">
-         <children>
-            <Hyperlink fx:id="hlSingUp" text="SingUP" />
-            <Hyperlink fx:id="hlSingIn" onAction="#irSingIn" prefHeight="23.0" prefWidth="600.0" text="SingIn" />
-            <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#salir" text="Salir" />
-         </children>
-      </HBox>
-   </children>
-</Pane>
+                        <VBox alignment="CENTER" prefHeight="168.0" prefWidth="295.0" style="-fx-spacing: 10;">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label text="Nombre y apellidos">
+                                            <VBox.margin>
+                                                <Insets left="210.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/img/iconoUser.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfNombre" prefHeight="26.0" prefWidth="350.0" promptText="Introduce el email" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="10.0" layoutY="9.0">
+                                    <children>
+                                        <Label text="Correo electrónico">
+                                            <VBox.margin>
+                                                <Insets left="210.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/img/icons8-correo-50.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfCorreo" prefHeight="26.0" prefWidth="350.0" promptText="Introduce el email" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="10.0" layoutY="99.0">
+                                    <children>
+                                        <Label text="Ciudad">
+                                            <VBox.margin>
+                                                <Insets left="210.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/img/icons8-centro-30.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfCiudad" prefHeight="26.0" prefWidth="350.0" promptText="Introduce el email" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="10.0" layoutY="127.0">
+                                    <children>
+                                        <Label text="Calle">
+                                            <VBox.margin>
+                                                <Insets left="210.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/img/icons8-casa-64.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfCalle" prefHeight="26.0" prefWidth="350.0" promptText="Introduce el email" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="10.0" layoutY="173.0">
+                                    <children>
+                                        <Label text="Código postal">
+                                            <VBox.margin>
+                                                <Insets left="210.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/img/icons8-postal-50.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfZip" prefHeight="26.0" prefWidth="350.0" promptText="Introduce el email" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Label text="Contraseña">
+                                            <VBox.margin>
+                                                <Insets left="210.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/img/icons8-centro-30.png" />
+                                                    </image>
+                                                    <HBox.margin>
+                                                        <Insets left="40.0" />
+                                                    </HBox.margin>
+                                                </ImageView>
+                                                <StackPane prefHeight="27.0" prefWidth="282.0">
+                                                    <children>
+                                                        <PasswordField fx:id="pfPass" maxWidth="350.0" minWidth="312.0" prefHeight="26.0" prefWidth="312.0" promptText="Introduce la contraseña" />
+                                                        <TextField fx:id="tfPass" maxWidth="350.0" minWidth="350.0" prefHeight="26.0" prefWidth="350.0" promptText="Introduce la contraseña" visible="false" />
+                                                    </children>
+                                                </StackPane>
+                                                <Button fx:id="btnVerPass" mnemonicParsing="false" prefHeight="26.0" prefWidth="42.0" style="-fx-background-image: url('/img/iconoOjoAbierto.png'); -fx-background-size: contain; -fx-background-position: center; -fx-background-repeat: no-repeat;" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Label text="Repite la contraseña">
+                                            <VBox.margin>
+                                                <Insets left="210.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/img/icons8-centro-30.png" />
+                                                    </image>
+                                                    <HBox.margin>
+                                                        <Insets left="40.0" />
+                                                    </HBox.margin>
+                                                </ImageView>
+                                                <StackPane prefHeight="27.0" prefWidth="282.0">
+                                                    <children>
+                                                        <PasswordField fx:id="pfPass2" maxWidth="350.0" minWidth="350.0" prefHeight="26.0" prefWidth="350.0" promptText="Introduce la contraseña" />
+                                                        <TextField fx:id="tfPass2" maxWidth="350.0" minWidth="350.0" prefHeight="26.0" prefWidth="350.0" promptText="Introduce la contraseña" visible="false" />
+                                                    </children>
+                                                </StackPane>
+                                                <Button fx:id="btnVerPass2" mnemonicParsing="false" prefHeight="26.0" prefWidth="42.0" style="-fx-background-image: url('/img/iconoOjoAbierto.png'); -fx-background-size: contain; -fx-background-position: center; -fx-background-repeat: no-repeat;" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <CheckBox fx:id="cbActive" alignment="TOP_LEFT" mnemonicParsing="false" text="Usuario activo" />
+                                <HBox alignment="CENTER">
+                                    <children>
+                                        <Label text="No tienes una cuenta?" />
+                                        <Hyperlink fx:id="hlCrear" text="Crea una" />
+                                    </children>
+                                </HBox>
+                                <Button fx:id="btnSignIn" mnemonicParsing="false" text="Iniciar sesión" />
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

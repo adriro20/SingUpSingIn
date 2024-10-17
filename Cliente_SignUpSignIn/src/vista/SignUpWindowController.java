@@ -37,6 +37,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -148,7 +149,7 @@ public class SignUpWindowController implements Initializable {
     CheckBox cbActive;
 
     @FXML
-    Pane bpPrincipal;
+    BorderPane bpPrincipal;
 
     /**
      * Método que gestiona el registro del usuario utilizando los datos
@@ -159,7 +160,7 @@ public class SignUpWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario intenta registrarse.
      */
     @FXML
-    private void singUp(ActionEvent event) {
+    private void signUp(ActionEvent event) {
         User user;
         Message mensaje;
         if (tfNombre.getText().equals("") || tfZip.getText().equals("") || tfCorreo.getText().equals("")
@@ -264,7 +265,7 @@ public class SignUpWindowController implements Initializable {
      * Metodo para cambiar de ventana llendo a la vista vistaLogIn
      */
     @FXML
-    private void irSingIn(ActionEvent event) {
+    private void irSignIn(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignIn.fxml"));
             Parent root = loader.load();
@@ -317,5 +318,11 @@ public class SignUpWindowController implements Initializable {
         contextMenu.getItems().addAll(item1, item2);
 
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
+        
+        hlSignIn.setOnAction(this::irSignIn);
+        btnSalir.setOnAction(this::salir);
+        btnVerPass.setOnAction(this::verPass);
+        btnVerPass2.setOnAction(this::verPass2);
+        btnSingUp.setOnAction(this::signUp);
     }
 }
