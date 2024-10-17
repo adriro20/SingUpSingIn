@@ -29,8 +29,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -41,7 +46,7 @@ import javafx.stage.Stage;
  *
  * @author 2dam
  */
-public class LogInWindowController implements Initializable {
+public class SignInWindowController implements Initializable {
 
     /**
      * Botón para salir de la aplicación.
@@ -99,6 +104,9 @@ public class LogInWindowController implements Initializable {
     @FXML
     TextField tfPass;
 
+    @FXML
+    BorderPane bpPrincipal;
+
     /**
      * Cierra la aplicación.
      *
@@ -107,10 +115,10 @@ public class LogInWindowController implements Initializable {
      */
     private void closeApp(ActionEvent event) {
         Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
-        if(confirmar.get() == ButtonType.YES){
+        if (confirmar.get() == ButtonType.YES) {
             Platform.exit();
         }
-        
+
     }
 
     /**
@@ -149,10 +157,10 @@ public class LogInWindowController implements Initializable {
                     stage.show();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
             } catch (InternalServerErrorException | LogInDataException | NoConnectionsAvailableException ex) {
-                Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();
             }
         }
@@ -169,7 +177,7 @@ public class LogInWindowController implements Initializable {
      */
     private void signUp(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSingUp.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSignUp.fxml"));
             Parent root = loader.load();
 
             // Obtener el Stage desde el nodo que disparó el evento
@@ -182,7 +190,7 @@ public class LogInWindowController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
             new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
         }
     }
@@ -211,6 +219,14 @@ public class LogInWindowController implements Initializable {
         }
     }
 
+    private void controlMenuConceptual(MouseEvent event, ContextMenu menu) {
+        if (event.getButton() == MouseButton.SECONDARY) {
+            menu.show(bpPrincipal, event.getScreenX(), event.getScreenY());
+        } else {
+            menu.hide();
+        }
+    }
+
     /**
      * Inicializa la ventana de inicio de sesión cuando ésta es creada.
      *
@@ -220,11 +236,24 @@ public class LogInWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) bpPrincipal.getScene().getWindow();
+            stage.setResizable(false);
+        });
+
         btnSalir.setOnAction(this::closeApp);
         btnVerPass.setOnAction(this::verPass);
         btnSignIn.setOnAction(this::signIn);
         hlSignUp.setOnAction(this::signUp);
         hlCrear.setOnAction(this::signUp);
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem item1 = new MenuItem("Cambiar a tema oscuro");
+        MenuItem item2 = new MenuItem("Cambiar a tema claro");
+        contextMenu.getItems().addAll(item1, item2);
+
+        bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
+
     }
 
 }
