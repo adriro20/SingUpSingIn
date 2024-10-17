@@ -143,7 +143,7 @@ public class SignInWindowController implements Initializable {
 
             try {
                 if (SignableFactory.getSignable().signIn(mensaje)) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaMain.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignOut.fxml"));
                     Parent root = loader.load();
 
                     // Obtener el Stage desde el nodo que disparó el evento
@@ -177,7 +177,7 @@ public class SignInWindowController implements Initializable {
      */
     private void signUp(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSignUp.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignUp.fxml"));
             Parent root = loader.load();
 
             // Obtener el Stage desde el nodo que disparó el evento

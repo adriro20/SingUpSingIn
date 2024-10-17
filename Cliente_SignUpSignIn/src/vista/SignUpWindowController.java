@@ -266,7 +266,7 @@ public class SignUpWindowController implements Initializable {
     @FXML
     private void irSingIn(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSignIn.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignIn.fxml"));
             Parent root = loader.load();
 
             // Obtener el Stage desde el botón que disparó el evento
