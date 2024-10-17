@@ -146,7 +146,7 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     CheckBox cbActive;
-    
+
     @FXML
     Pane bpPrincipal;
 
@@ -294,6 +294,11 @@ public class SignUpWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) bpPrincipal.getScene().getWindow();
+            stage.setResizable(false);
+            stage.setTitle("Registro");
+        });
         Tooltip tooltip = new Tooltip("Nombre y Dos Apellidos");
         tfNombre.setTooltip(tooltip);
         Tooltip tooltip2 = new Tooltip("Correo valido que termine @gmail.com");

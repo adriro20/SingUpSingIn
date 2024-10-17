@@ -239,6 +239,7 @@ public class SignInWindowController implements Initializable {
         Platform.runLater(() -> {
             Stage stage = (Stage) bpPrincipal.getScene().getWindow();
             stage.setResizable(false);
+            stage.setTitle("Inicio de sesión");
         });
 
         btnSalir.setOnAction(this::closeApp);

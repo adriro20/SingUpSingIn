@@ -46,7 +46,12 @@ public class SignOutWindowController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle resources) {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) bpPrincipal.getScene().getWindow();
+            stage.setResizable(false);
+            stage.setTitle("Inicio");
+        });
         btnCerrarAplicacion.setOnAction(this::closeApp);
         btnCerrarSesion.setOnAction(this::signOut);
 
