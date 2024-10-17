@@ -49,6 +49,9 @@ import javafx.stage.Stage;
  */
 public class SignUpWindowController implements Initializable {
 
+    @FXML
+    BorderPane bpPrincipal;
+    
     /**
      * Enlace para redirigir al usuario a la vista de inicio de sesión (Sign
      * In).
@@ -61,32 +64,44 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     Hyperlink hlSignUp;
-
-    /**
+    
+     /**
+     * Botón para salir de la aplicación.
+     */
+    @FXML
+    Button btnSalir;
+    
+        /**
      * Campo de texto para ingresar el nombre del usuario.
      */
     @FXML
     TextField tfNombre;
-
-    /**
-     * Campo de texto para ingresar el número de teléfono del usuario.
-     */
-    @FXML
-    TextField tfZip;
-
-    /**
+    
+        /**
      * Campo de texto para ingresar el correo electrónico del usuario.
      */
     @FXML
     TextField tfCorreo;
-
-    /**
+    
+        /**
      * Campo de texto para ingresar la ciudad del usuario.
      */
     @FXML
     TextField tfCiudad;
-
-    /**
+    
+        /**
+     * Campo de texto para ingresar la calle del usuario.
+     */
+    @FXML
+    TextField tfCalle;
+    
+        /**
+     * Campo de texto para ingresar el número de teléfono del usuario.
+     */
+    @FXML
+    TextField tfZip;
+    
+        /**
      * Campo de contraseña para ingresar la contraseña del usuario.
      */
     @FXML
@@ -97,8 +112,8 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     PasswordField pfPass2;
-
-    /**
+    
+        /**
      * Campo de texto para mostrar la contraseña en texto plano (alternativa a
      * pfPass).
      */
@@ -111,20 +126,8 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     TextField tfPass2;
-
-    /**
-     * Botón para confirmar el registro del usuario.
-     */
-    @FXML
-    Button btnSingUp;
-
-    /**
-     * Botón para salir de la aplicación.
-     */
-    @FXML
-    Button btnSalir;
-
-    /**
+    
+        /**
      * Botón para alternar la visibilidad de la contraseña principal.
      */
     @FXML
@@ -135,21 +138,24 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     Button btnVerPass2;
-
-    /**
-     * Campo de texto para ingresar la calle del usuario.
-     */
-    @FXML
-    TextField tfStreet;
-
-    /**
+    
+        /**
      * Campo para saber si el usuario esta activo o no
      */
     @FXML
     CheckBox cbActive;
-
+    
+    /**
+     * Enlace para redirigir al usuario a la vista de registro (Sign Up).
+     */
     @FXML
-    BorderPane bpPrincipal;
+    Hyperlink hlCrear;
+
+    /**
+     * Botón para confirmar el registro del usuario.
+     */
+    @FXML
+    Button btnSignUp;
 
     /**
      * Método que gestiona el registro del usuario utilizando los datos
@@ -164,7 +170,7 @@ public class SignUpWindowController implements Initializable {
         User user;
         Message mensaje;
         if (tfNombre.getText().equals("") || tfZip.getText().equals("") || tfCorreo.getText().equals("")
-                || tfCiudad.getText().equals("") || pfPass.getText().equals("") || pfPass2.getText().equals("") || tfStreet.getText().equals("")) {
+                || tfCiudad.getText().equals("") || pfPass.getText().equals("") || pfPass2.getText().equals("") || tfCalle.getText().equals("")) {
             new Alert(Alert.AlertType.ERROR, "Te Falta algun campo por rellenar", ButtonType.OK).showAndWait();
         } else if (pfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
             new Alert(Alert.AlertType.ERROR, "La contraseña no es valida", ButtonType.OK).showAndWait();
@@ -180,7 +186,7 @@ public class SignUpWindowController implements Initializable {
             user.setName(tfNombre.getText());
             user.setZip(tfZip.getText());
             user.setCity(tfCiudad.getText());
-            user.setStreet(tfStreet.getText());
+            user.setStreet(tfCalle.getText());
             user.setEmail(tfCorreo.getText());
             user.setPassword(pfPass.getText());
             user.setActive(cbActive.isSelected());
@@ -318,11 +324,11 @@ public class SignUpWindowController implements Initializable {
         contextMenu.getItems().addAll(item1, item2);
 
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
-        
+
         hlSignIn.setOnAction(this::irSignIn);
         btnSalir.setOnAction(this::salir);
         btnVerPass.setOnAction(this::verPass);
         btnVerPass2.setOnAction(this::verPass2);
-        btnSingUp.setOnAction(this::signUp);
+        btnSignUp.setOnAction(this::signUp);
     }
 }

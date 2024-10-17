@@ -204,7 +204,7 @@
                                         <Hyperlink fx:id="hlCrear" text="Crea una" />
                                     </children>
                                 </HBox>
-                                <Button fx:id="btnSignIn" mnemonicParsing="false" text="Iniciar sesión" />
+                                <Button fx:id="btnSignUp" mnemonicParsing="false" text="Registrarse" />
                             </children>
                         </VBox>
                     </children>
