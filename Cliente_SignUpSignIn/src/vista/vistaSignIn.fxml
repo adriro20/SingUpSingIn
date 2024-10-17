@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.LogInWindowController">
+<BorderPane maxHeight="700.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.LogInWindowController">
     <top>
-        <HBox spacing="517.0" BorderPane.alignment="CENTER">
+        <HBox spacing="830.0" BorderPane.alignment="CENTER">
             <children>
                 <HBox spacing="10.0">
                     <children>
@@ -30,7 +30,7 @@
     <center>
         <StackPane prefHeight="392.0" prefWidth="620.0" style="-fx-background-image: url('/img/imgFondo.jpg'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;" BorderPane.alignment="CENTER">
             <children>
-                <VBox alignment="CENTER" prefHeight="326.0" prefWidth="415.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 50;" StackPane.alignment="CENTER">
+                <VBox alignment="CENTER" maxHeight="420.0" maxWidth="600.0" minHeight="420.0" minWidth="600.0" prefHeight="420.0" prefWidth="600.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 50;" StackPane.alignment="CENTER">
                     <StackPane.margin>
                         <Insets bottom="40.0" left="100.0" right="100.0" top="40.0" />
                     </StackPane.margin>
@@ -43,37 +43,46 @@
                                 <Insets bottom="30.0" left="30.0" right="30.0" />
                             </VBox.margin>
                         </ImageView>
-                        <VBox alignment="CENTER" prefHeight="85.0" prefWidth="300.0" style="-fx-spacing: 10;">
+                        <VBox alignment="CENTER" prefHeight="168.0" prefWidth="295.0" style="-fx-spacing: 10;">
                             <children>
-                                <VBox prefHeight="71.0" prefWidth="300.0">
+                                <VBox>
                                     <children>
-                                        <Label text="Email" />
-                                        <HBox prefHeight="100.0" prefWidth="200.0">
+                                        <Label text="Email">
+                                 <VBox.margin>
+                                    <Insets left="90.0" />
+                                 </VBox.margin></Label>
+                                        <HBox alignment="CENTER">
                                             <children>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@/img/iconoUser.png" />
                                                     </image>
                                                 </ImageView>
-                                                <TextField fx:id="tfCorreo" prefHeight="26.0" prefWidth="326.0" promptText="Introduce el email" />
+                                                <TextField fx:id="tfCorreo" prefHeight="26.0" prefWidth="350.0" promptText="Introduce el email" />
                                             </children>
                                         </HBox>
                                     </children>
                                 </VBox>
-                                <VBox prefHeight="0.0" prefWidth="400.0">
+                                <VBox>
                                     <children>
-                                        <Label text="Contraseña" />
-                                        <HBox prefHeight="100.0" prefWidth="200.0">
+                                        <Label text="Contraseña">
+                                 <VBox.margin>
+                                    <Insets left="90.0" />
+                                 </VBox.margin></Label>
+                                        <HBox alignment="CENTER">
                                             <children>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@/img/iconoContrasena.png" />
                                                     </image>
+                                       <HBox.margin>
+                                          <Insets left="40.0" />
+                                       </HBox.margin>
                                                 </ImageView>
                                                 <StackPane prefHeight="27.0" prefWidth="282.0">
                                                     <children>
-                                                        <PasswordField fx:id="pfPass" prefHeight="26.0" prefWidth="283.0" promptText="Introduce la contraseña" />
-                                                        <TextField fx:id="tfPass" prefHeight="26.0" prefWidth="288.0" visible="false" promptText="Introduce la contraseña" />
+                                                        <PasswordField fx:id="pfPass" maxWidth="350.0" minWidth="350.0" prefHeight="26.0" prefWidth="350.0" promptText="Introduce la contraseña" />
+                                                        <TextField fx:id="tfPass" maxWidth="350.0" minWidth="350.0" prefHeight="26.0" prefWidth="350.0" promptText="Introduce la contraseña" visible="false" />
                                                     </children>
                                                 </StackPane>
                                                 <Button fx:id="btnVerPass" mnemonicParsing="false" prefHeight="26.0" prefWidth="42.0" style="-fx-background-image: url('/img/iconoOjoAbierto.png'); -fx-background-size: contain; -fx-background-position: center; -fx-background-repeat: no-repeat;" />
