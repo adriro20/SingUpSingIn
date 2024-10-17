@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="700.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" fx:id="bpPrincipal" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.SignInWindowController">
+<BorderPane fx:id="bpPrincipal" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.SignInWindowController">
     <top>
-        <HBox spacing="830.0" BorderPane.alignment="CENTER">
+        <HBox spacing="769.0" BorderPane.alignment="CENTER">
             <children>
                 <HBox spacing="10.0">
                     <children>
@@ -48,9 +48,10 @@
                                 <VBox>
                                     <children>
                                         <Label text="Email">
-                                 <VBox.margin>
-                                    <Insets left="90.0" />
-                                 </VBox.margin></Label>
+                                            <VBox.margin>
+                                                <Insets left="90.0" />
+                                            </VBox.margin>
+                                        </Label>
                                         <HBox alignment="CENTER">
                                             <children>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -66,18 +67,19 @@
                                 <VBox>
                                     <children>
                                         <Label text="Contraseña">
-                                 <VBox.margin>
-                                    <Insets left="90.0" />
-                                 </VBox.margin></Label>
+                                            <VBox.margin>
+                                                <Insets left="90.0" />
+                                            </VBox.margin>
+                                        </Label>
                                         <HBox alignment="CENTER">
                                             <children>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@/img/iconoContrasena.png" />
                                                     </image>
-                                       <HBox.margin>
-                                          <Insets left="40.0" />
-                                       </HBox.margin>
+                                                    <HBox.margin>
+                                                        <Insets left="40.0" />
+                                                    </HBox.margin>
                                                 </ImageView>
                                                 <StackPane prefHeight="27.0" prefWidth="282.0">
                                                     <children>

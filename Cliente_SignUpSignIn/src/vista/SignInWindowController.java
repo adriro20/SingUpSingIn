@@ -177,7 +177,7 @@ public class SignInWindowController implements Initializable {
      */
     private void signUp(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignUp.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignUpNew.fxml"));
             Parent root = loader.load();
 
             // Obtener el Stage desde el nodo que disparó el evento
