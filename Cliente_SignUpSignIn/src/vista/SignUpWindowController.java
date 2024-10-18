@@ -150,7 +150,7 @@ public class SignUpWindowController implements Initializable {
      * Enlace para redirigir al usuario a la vista de registro (Sign Up).
      */
     @FXML
-    Hyperlink hlCrear;
+    Hyperlink hlTienes;
 
     /**
      * Botón para confirmar el registro del usuario.
@@ -318,13 +318,13 @@ public class SignUpWindowController implements Initializable {
             stage.setResizable(false);
             stage.setTitle("Registro");
         });
-        Tooltip tooltip = new Tooltip("Nombre y Dos Apellidos");
+        Tooltip tooltip = new Tooltip("Nombre y nos apellidos");
         tfNombre.setTooltip(tooltip);
-        Tooltip tooltip2 = new Tooltip("Correo valido que termine @gmail.com");
+        Tooltip tooltip2 = new Tooltip("Correo válido");
         tfCorreo.setTooltip(tooltip2);
         Tooltip tooltip3 = new Tooltip("Introduce solo numeros");
         tfZip.setTooltip(tooltip3);
-        Tooltip tooltip4 = new Tooltip("Minimo 6 caracteres minimo una letra mayuscula y otra minuscula y un numero");
+        Tooltip tooltip4 = new Tooltip("Mínimo 6 caracteres minimo una letra mayuscula y otra minuscula y un número");
         tfPass.setTooltip(tooltip4);
         pfPass.setTooltip(tooltip4);
         tfPass2.setTooltip(tooltip4);
@@ -342,5 +342,6 @@ public class SignUpWindowController implements Initializable {
         btnVerPass.setOnAction(this::verPass);
         btnVerPass2.setOnAction(this::verPass2);
         btnSignUp.setOnAction(this::signUp);
+        hlTienes.setOnAction(this::irSignIn);
     }
 }

@@ -200,8 +200,8 @@
                                 <CheckBox fx:id="cbActive" alignment="TOP_LEFT" mnemonicParsing="false" text="Usuario activo" selected="true"/>
                                 <HBox alignment="CENTER">
                                     <children>
-                                        <Label text="No tienes una cuenta?" />
-                                        <Hyperlink fx:id="hlCrear" text="Crea una" />
+                                        <Label text="Tienes una cuenta?" />
+                                        <Hyperlink fx:id="hlTienes" text="Inicia sesión" />
                                     </children>
                                 </HBox>
                                 <Button fx:id="btnSignUp" mnemonicParsing="false" text="Registrarse" />
