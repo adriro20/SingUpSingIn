@@ -15,6 +15,7 @@ import excepciones.UserExitsException;
 import static java.awt.SystemColor.text;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +52,7 @@ public class SignUpWindowController implements Initializable {
 
     @FXML
     BorderPane bpPrincipal;
-    
+
     /**
      * Enlace para redirigir al usuario a la vista de inicio de sesión (Sign
      * In).
@@ -64,44 +65,44 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     Hyperlink hlSignUp;
-    
-     /**
+
+    /**
      * Botón para salir de la aplicación.
      */
     @FXML
     Button btnSalir;
-    
-        /**
+
+    /**
      * Campo de texto para ingresar el nombre del usuario.
      */
     @FXML
     TextField tfNombre;
-    
-        /**
+
+    /**
      * Campo de texto para ingresar el correo electrónico del usuario.
      */
     @FXML
     TextField tfCorreo;
-    
-        /**
+
+    /**
      * Campo de texto para ingresar la ciudad del usuario.
      */
     @FXML
     TextField tfCiudad;
-    
-        /**
+
+    /**
      * Campo de texto para ingresar la calle del usuario.
      */
     @FXML
     TextField tfCalle;
-    
-        /**
+
+    /**
      * Campo de texto para ingresar el número de teléfono del usuario.
      */
     @FXML
     TextField tfZip;
-    
-        /**
+
+    /**
      * Campo de contraseña para ingresar la contraseña del usuario.
      */
     @FXML
@@ -112,8 +113,8 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     PasswordField pfPass2;
-    
-        /**
+
+    /**
      * Campo de texto para mostrar la contraseña en texto plano (alternativa a
      * pfPass).
      */
@@ -126,8 +127,8 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     TextField tfPass2;
-    
-        /**
+
+    /**
      * Botón para alternar la visibilidad de la contraseña principal.
      */
     @FXML
@@ -138,13 +139,13 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     Button btnVerPass2;
-    
-        /**
+
+    /**
      * Campo para saber si el usuario esta activo o no
      */
     @FXML
     CheckBox cbActive;
-    
+
     /**
      * Enlace para redirigir al usuario a la vista de registro (Sign Up).
      */
@@ -226,7 +227,10 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     private void salir(ActionEvent event) {
-        Platform.exit();
+        Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
+        if (confirmar.get() == ButtonType.YES) {
+            Platform.exit();
+        }
     }
 
     /**
@@ -237,14 +241,18 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     private void verPass(ActionEvent event) {
+        String estilo = btnVerPass.getStyle();
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
         if (tfPass.isVisible()) {
             pfPass.setText(tfPass.getText());
             pfPass.setVisible(true);
             tfPass.setVisible(false);
+            btnVerPass.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoAbierto.png');");
         } else {
             tfPass.setText(pfPass.getText());
             tfPass.setVisible(true);
             pfPass.setVisible(false);
+            btnVerPass.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoCerrado.png');");
         }
     }
 
@@ -256,14 +264,18 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     private void verPass2(ActionEvent event) {
+        String estilo = btnVerPass2.getStyle();
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
         if (tfPass2.isVisible()) {
             pfPass2.setText(tfPass2.getText());
             pfPass2.setVisible(true);
             tfPass2.setVisible(false);
+            btnVerPass2.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoAbierto.png');");
         } else {
             tfPass2.setText(pfPass2.getText());
             tfPass2.setVisible(true);
             pfPass2.setVisible(false);
+            btnVerPass2.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoCerrado.png');");
         }
     }
 

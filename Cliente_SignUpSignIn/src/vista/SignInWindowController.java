@@ -118,7 +118,6 @@ public class SignInWindowController implements Initializable {
         if (confirmar.get() == ButtonType.YES) {
             Platform.exit();
         }
-
     }
 
     /**
