@@ -15,7 +15,7 @@
 
 <BorderPane fx:id="bpPrincipal" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.SignInWindowController">
     <top>
-        <HBox spacing="769.0" BorderPane.alignment="CENTER">
+        <HBox spacing="860" BorderPane.alignment="CENTER">
             <children>
                 <HBox spacing="10.0">
                     <children>

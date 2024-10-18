@@ -16,7 +16,7 @@
 
 <BorderPane fx:id="bpPrincipal" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.SignUpWindowController">
     <top>
-        <HBox spacing="769.0" BorderPane.alignment="CENTER">
+        <HBox spacing="860" BorderPane.alignment="CENTER">
             <children>
                 <HBox spacing="10.0">
                     <children>
@@ -152,7 +152,7 @@
                                             <children>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@/img/icons8-centro-30.png" />
+                                                        <Image url="@/img/iconoContrasena.png" />
                                                     </image>
                                                     <HBox.margin>
                                                         <Insets left="40.0" />
@@ -180,7 +180,7 @@
                                             <children>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@/img/icons8-centro-30.png" />
+                                                        <Image url="@/img/iconoContrasena.png" />
                                                     </image>
                                                     <HBox.margin>
                                                         <Insets left="40.0" />
