@@ -52,7 +52,7 @@ public class Main extends javafx.application.Application {
      * @param args los argumentos de la línea de comandos.
      */
     public static void main(String[] args) {
-        //Iniciia el programa.
+        //Inicia el programa.
         launch(args);
     }
 
