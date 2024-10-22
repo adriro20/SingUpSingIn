@@ -48,7 +48,7 @@ import javafx.stage.Stage;
  * Implementa la interfaz Initializable para inicializar los componentes de la
  * interfaz creados desde un archivo FXML.
  *
- * @author Julen Hidalgo
+ * @author Julen Hidalgo, Adrián Rocha.
  */
 public class SignInWindowController implements Initializable {
 
