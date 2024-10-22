@@ -195,20 +195,20 @@ public class SignUpWindowController implements Initializable {
             mensaje.setRequest(Request.SING_UP_REQUEST);
 
             try {
-                if (SignableFactory.getSignable().signUp(mensaje)) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaMain.fxml"));
-                    Parent root = loader.load();
+                SignableFactory.getSignable().signUp(mensaje);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaMain.fxml"));
+                Parent root = loader.load();
 
-                    // Obtener el Stage desde el nodo que disparó el evento
-                    Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                // Obtener el Stage desde el nodo que disparó el evento
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-                    // Crear una nueva escena con el contenido cargado
-                    Scene scene = new Scene(root);
+                // Crear una nueva escena con el contenido cargado
+                Scene scene = new Scene(root);
 
-                    // Establecer la nueva escena en el Stage
-                    stage.setScene(scene);
-                    stage.show();
-                }
+                // Establecer la nueva escena en el Stage
+                stage.setScene(scene);
+                stage.show();
+
             } catch (IOException ex) {
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
