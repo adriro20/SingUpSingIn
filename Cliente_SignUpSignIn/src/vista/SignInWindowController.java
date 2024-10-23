@@ -59,13 +59,6 @@ public class SignInWindowController implements Initializable {
     Button btnSalir;
 
     /**
-     * Enlace para redirigir al usuario a la vista de inicio de sesión (Sign
-     * In).
-     */
-    @FXML
-    Hyperlink hlSignIn;
-
-    /**
      * Enlace para redirigir al usuario a la vista de registro (Sign Up).
      */
     @FXML
@@ -285,7 +278,7 @@ public class SignInWindowController implements Initializable {
     }
 
     /**
-     * Es el metodo qeu inicializa la ventana de inicio de sesión, además es la 
+     * Es el metodo que inicializa la ventana de inicio de sesión, además es la 
      * que le da las propiedades de recoger eventos a todos los botones.
      *
      * @param location Ubicación del archivo FXML utilizado para crear la

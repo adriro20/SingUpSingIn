@@ -12,7 +12,6 @@ import controller.SignableFactory;
 import excepciones.InternalServerErrorException;
 import excepciones.NoConnectionsAvailableException;
 import excepciones.UserExitsException;
-import static java.awt.SystemColor.text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -39,17 +38,25 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * clase que maneja todos los controles de la ventana vistaSingUp (ventana de
- * registro de usuario)
+ * Controlador de la ventana de registro (viewSignUp).
  *
- * @author 2dam
+ * Esta clase gestiona la interacción de los controles de la interfaz gráfica
+ * con el usuario, como registrarse, alternar la visibilidad de la contraseña,
+ * cambiar a la ventana de inicio de sesión y salir de la aplicación.
+ *
+ * Implementa la interfaz Initializable para inicializar los componentes de la
+ * interfaz creados desde un archivo FXML.
+ *
+ * @author Erlantz Rey.
  */
 public class SignUpWindowController implements Initializable {
 
+    /**
+     * Panel principal que contiene los elementos de la interfaz.
+     */
     @FXML
     BorderPane bpPrincipal;
 
@@ -59,12 +66,6 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     Hyperlink hlSignIn;
-
-    /**
-     * Enlace para redirigir al usuario a la vista de registro (Sign Up).
-     */
-    @FXML
-    Hyperlink hlSignUp;
 
     /**
      * Botón para salir de la aplicación.
@@ -159,31 +160,50 @@ public class SignUpWindowController implements Initializable {
     Button btnSignUp;
 
     /**
-     * Método que gestiona el registro del usuario utilizando los datos
-     * proporcionados en los campos de texto. Valida que los campos no estén
-     * vacíos, que las contraseñas coincidan, que el número de teléfono tenga 8
-     * dígitos, y que el correo sea válido con formato de Gmail.
+     * Maneja el proceso de registro.
      *
-     * @param event Evento que se dispara cuando el usuario intenta registrarse.
+     * Verifica que los campos de texto no estén vacíos y envía una solicitud de
+     * registro. Si la autenticación es exitosa, cambia a la ventana principal.
+     * Si falla, muestra un mensaje de error dependiendo de el tipo de error que
+     * haya sido.
+     *
+     * @param event Evento disparado al hacer clic en el botón "Sign In".
      */
     @FXML
     private void signUp(ActionEvent event) {
-        User user;
-        Message mensaje;
+        //Se crea un nuevo User y Messsage
+        User user = new User();
+        Message mensaje = new Message();
+
+        //Se comprueban los campos para ver si hay alguno vacío.
         if (tfNombre.getText().equals("") || tfZip.getText().equals("") || tfCorreo.getText().equals("")
                 || tfCiudad.getText().equals("") || pfPass.getText().equals("") || pfPass2.getText().equals("") || tfCalle.getText().equals("")) {
+            //Si hay alguno vacío se muestra un mensaje.
             new Alert(Alert.AlertType.ERROR, "Te Falta algun campo por rellenar", ButtonType.OK).showAndWait();
+
+            //Se comprueba si la contraseña cumple los requisitos.
         } else if (pfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
+            //Si no es válida se muestra un mensaje.
             new Alert(Alert.AlertType.ERROR, "La contraseña no es valida", ButtonType.OK).showAndWait();
+
+            //Se comprueba que los dos campos de contraseña tengan el mismo texto.
         } else if (!pfPass.getText().equalsIgnoreCase(pfPass2.getText())) {
+            //Si no lo son, se muestra un mensaje.
             new Alert(Alert.AlertType.ERROR, "La contraseña no es igual en los dos campos", ButtonType.OK).showAndWait();
+
+            //Se comprueba si el código postal tiene 5 números.
         } else if (tfZip.getText().length() != 5 || !tfZip.getText().matches("\\d+")) {
+            //Si no tiene 5 números se muestra un mensaje.
             new Alert(Alert.AlertType.ERROR, "Codigo Postal Incorrecto", ButtonType.OK).showAndWait();
+
+            //Se comprueban los requisitos del email.
         } else if (!tfCorreo.getText().matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
+            //Si no los cumple se muestra un mensaje.
             new Alert(Alert.AlertType.ERROR, "Ese correo electronico no es valido", ButtonType.OK).showAndWait();
+
+            //Si todo ha sido correcto, se crea el Message que se va a mandar al servidor.
         } else {
-            user = new User();
-            mensaje = new Message();
+            //Se cargan los datos de los campos de texto en el User.
             user.setName(tfNombre.getText());
             user.setZip(tfZip.getText());
             user.setCity(tfCiudad.getText());
@@ -191,12 +211,18 @@ public class SignUpWindowController implements Initializable {
             user.setEmail(tfCorreo.getText());
             user.setPassword(pfPass.getText());
             user.setActive(cbActive.isSelected());
+            //Se añade el User al Message.
             mensaje.setUser(user);
+            //Se añade Request al Message
             mensaje.setRequest(Request.SING_UP_REQUEST);
 
             try {
+                // Se manda el Message creado al servidor, en caso de que no 
+                // salte ninguna excepción significa que todo ha ido correctamente.
                 SignableFactory.getSignable().signUp(mensaje);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaMain.fxml"));
+
+                // Se carga el FXML con la información de la vista viewSignOut.
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignOut.fxml"));
                 Parent root = loader.load();
 
                 // Obtener el Stage desde el nodo que disparó el evento
@@ -210,9 +236,16 @@ public class SignUpWindowController implements Initializable {
                 stage.show();
 
             } catch (IOException ex) {
+                // Si salta una IOException significa que ha habido algún 
+                // problema al cargar el FXML o al intentar llamar a la nueva 
+                // ventana, por lo que se mostrará un Alert con el mensaje 
+                // "Error en la sincronización de ventanas, intentalo más tarde".
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
             } catch (InternalServerErrorException | UserExitsException | NoConnectionsAvailableException ex) {
+                // Si salta alguna de las excepciones creadas por nosotros se 
+                // muestra un Alert con el mensaje correspondiente de 
+                // cada una de ellas.
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();
             }
@@ -221,34 +254,51 @@ public class SignUpWindowController implements Initializable {
     }
 
     /**
-     * Sirve para cerrar la aplicaion
+     * Cierra la aplicación.
      *
-     * @param event
+     * Solicita confirmación del usuario antes de cerrar la aplicación.
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * botón "Salir".
      */
-    @FXML
-    private void salir(ActionEvent event) {
+    private void closeApp(ActionEvent event) {
+        //Se muestra un Alert con dos opciones para confirmar que el usuario 
+        //quiere cerrar la app.
         Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
+
+        //Si la confirmación del Alert es verdadera, se cierra el programa.
         if (confirmar.get() == ButtonType.YES) {
             Platform.exit();
         }
     }
 
     /**
-     * metodo para que alterne entre visible y no visible la contraseña cambia
-     * entre (pfPass/tfPass)
+     * Alterna la visibilidad de la contraseña (pfPass/tfPass). Si el
+     * PasswordField está visible, la contraseña no se puede leer, en cambio si
+     * el campo que está visible es el TextField la contraseña tiene formato de
+     * texto plano.
      *
-     * @param event
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * botón "verPass".
      */
-    @FXML
     private void verPass(ActionEvent event) {
+        //Se obtiene el estilo del botón VerPass.
         String estilo = btnVerPass.getStyle();
+
+        //Se quita la imagen del fondo del botón.
         String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
+
+        //Se comprueba si el PasswordField o el TextField es visible.
         if (tfPass.isVisible()) {
+            //Si el TextField está visible, se alterna la visibilidad, se copia 
+            //el texto en el PasswordField y se cambia la imagen de fondo.
             pfPass.setText(tfPass.getText());
             pfPass.setVisible(true);
             tfPass.setVisible(false);
             btnVerPass.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoAbierto.png');");
         } else {
+            //Si el PasswordField está visible, se alterna la visibilidad, se copia 
+            //el texto en el PasswordField y se cambia la imagen de fondo.
             tfPass.setText(pfPass.getText());
             tfPass.setVisible(true);
             pfPass.setVisible(false);
@@ -257,21 +307,32 @@ public class SignUpWindowController implements Initializable {
     }
 
     /**
-     * metodo para que alterne entre visible y no visible la contraseña repetida
-     * cambia entre (pfPass/tfPass)
+     * Alterna la visibilidad de la contraseña (pfPass2/tfPass2). Si el
+     * PasswordField está visible, la contraseña no se puede leer, en cambio si
+     * el campo que está visible es el TextField la contraseña tiene formato de
+     * texto plano.
      *
-     * @param event
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * botón "verPass2".
      */
-    @FXML
     private void verPass2(ActionEvent event) {
+        //Se obtiene el estilo del botón VerPass2.
         String estilo = btnVerPass2.getStyle();
+
+        //Se quita la imagen del fondo del botón.
         String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
+
+        //Se comprueba si el PasswordField o el TextField es visible.
         if (tfPass2.isVisible()) {
+            //Si el TextField está visible, se alterna la visibilidad, se copia 
+            //el texto en el PasswordField y se cambia la imagen de fondo.
             pfPass2.setText(tfPass2.getText());
             pfPass2.setVisible(true);
             tfPass2.setVisible(false);
             btnVerPass2.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoAbierto.png');");
         } else {
+            //Si el PasswordField está visible, se alterna la visibilidad, se copia 
+            //el texto en el PasswordField y se cambia la imagen de fondo.
             tfPass2.setText(pfPass2.getText());
             tfPass2.setVisible(true);
             pfPass2.setVisible(false);
@@ -280,44 +341,73 @@ public class SignUpWindowController implements Initializable {
     }
 
     /**
-     * Metodo para cambiar de ventana llendo a la vista vistaLogIn
+     * Cambia a la ventana de inicio de sesión (viewSignIn).
+     *
+     * @param event Evento disparado al hacer clic en el enlace "hlSingIn".
      */
     @FXML
     private void irSignIn(ActionEvent event) {
         try {
+            // Se carga el FXML con la información de la vista viewSignIn.
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignIn.fxml"));
             Parent root = loader.load();
 
-            // Obtener el Stage desde el botón que disparó el evento
+            // Obtener el Stage desde el nodo que disparó el evento.
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-            // Crear una nueva escena con el contenido cargado
+            // Se crea un nuevo objeto de la clase Scene con el FXML cargado.
             Scene scene = new Scene(root);
 
-            // Establecer la nueva escena en el Stage
+            // Se muestra en la ventana el Scene creado.
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
+            // Si salta una IOException significa que ha habido algún 
+            // problema al cargar el FXML o al intentar llamar a la nueva 
+            // ventana, por lo que se mostrará un Alert con el mensaje 
+            // "Error en la sincronización de ventanas, intentalo más tarde".
             Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
             new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
         }
     }
 
+    /**
+     * Metodo para abrir el menú conceptual en el caso de que se haga clic con
+     * el botón derecho del ratón, en cambio, si se hace clic con cualqier otro
+     * botón del raton se cierra el menú.
+     *
+     * @param event Es el evento que compureba que botón del ratón se clica.
+     * @param menu Es el menú contextual que se muestra.
+     */
     private void controlMenuConceptual(MouseEvent event, ContextMenu menu) {
+        //Se comprueba si se hace clic con el borón derecho del ratón.
         if (event.getButton() == MouseButton.SECONDARY) {
+            //Si es así se abre el menú contextual.
             menu.show(bpPrincipal, event.getScreenX(), event.getScreenY());
         } else {
+            //Si no, se cierra el mismo.
             menu.hide();
         }
     }
 
+    /**
+     * Es el metodo que inicializa la ventana de registro, además es la que le
+     * da las propiedades de recoger eventos a todos los botones.
+     *
+     * @param location Ubicación del archivo FXML utilizado para crear la
+     * interfaz.
+     * @param resources Recursos utilizados para la interfaz.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Se le quita la propiedad Resizable a la ventana y se le añade el título.
         Platform.runLater(() -> {
             Stage stage = (Stage) bpPrincipal.getScene().getWindow();
             stage.setResizable(false);
             stage.setTitle("Registro");
         });
+        
+        //Se crean los tooltips para todos los campos de texto.
         Tooltip tooltip = new Tooltip("Nombre y nos apellidos");
         tfNombre.setTooltip(tooltip);
         Tooltip tooltip2 = new Tooltip("Correo válido");
@@ -330,6 +420,8 @@ public class SignUpWindowController implements Initializable {
         tfPass2.setTooltip(tooltip4);
         pfPass2.setTooltip(tooltip4);
 
+        //Se crea el menú contextual, el cual se mostrará si se hace clic con el 
+        //botón izquierdo del ratón.
         ContextMenu contextMenu = new ContextMenu();
         MenuItem item1 = new MenuItem("Cambiar a tema oscuro");
         MenuItem item2 = new MenuItem("Cambiar a tema claro");
@@ -337,8 +429,9 @@ public class SignUpWindowController implements Initializable {
 
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
 
+        //Se añaden los listeners a todos los botones.
         hlSignIn.setOnAction(this::irSignIn);
-        btnSalir.setOnAction(this::salir);
+        btnSalir.setOnAction(this::closeApp);
         btnVerPass.setOnAction(this::verPass);
         btnVerPass2.setOnAction(this::verPass2);
         btnSignUp.setOnAction(this::signUp);
