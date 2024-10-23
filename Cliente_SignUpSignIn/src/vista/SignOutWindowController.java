@@ -26,6 +26,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -63,6 +64,13 @@ public class SignOutWindowController implements Initializable {
     private BorderPane bpPrincipal;
 
     /**
+     * Panel que contiene los elementos situados en el centro que actua como
+     * fondo.
+     */
+    @FXML
+    StackPane stackPane;
+
+    /**
      * Es el metodo qeu inicializa la ventana de inicio de sesión, además es la
      * que le da las propiedades de recoger eventos a todos los botones.
      *
@@ -86,8 +94,11 @@ public class SignOutWindowController implements Initializable {
         //botón izquierdo del ratón.
         ContextMenu contextMenu = new ContextMenu();
         MenuItem item1 = new MenuItem("Cambiar a tema oscuro");
+        item1.setOnAction(this::cambiarTemaOscuro);
         MenuItem item2 = new MenuItem("Cambiar a tema claro");
+        item2.setOnAction(this::cambiarTemaClaro);
         MenuItem item3 = new MenuItem("Cerrar sesión");
+        item3.setOnAction(this::signOut);
         contextMenu.getItems().addAll(item1, item2, item3);
 
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
@@ -130,11 +141,18 @@ public class SignOutWindowController implements Initializable {
             //En el caso de que sea verdadera se cambia la ventana para mostrar la vista viewSignIn.
             try {
                 // Se carga el FXML con la información de la vista viewSignIn.
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("vistaSignIn.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignIn.fxml"));
                 Parent root = loader.load();
-
+                
                 // Obtener el Stage desde el botón que disparó el evento.
-                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                Stage stage;
+                if(event.getSource() instanceof javafx.scene.control.MenuItem){
+                    stage = (Stage) ((javafx.scene.control.MenuItem) event.getSource()).getParentPopup().getOwnerWindow().getScene().getWindow();  
+                }else{
+                    stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                }
+                
+
 
                 // Crear una nueva escena con el contenido cargado.
                 Scene scene = new Scene(root);
@@ -151,6 +169,42 @@ public class SignOutWindowController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
             }
         }
+    }
+
+    /**
+     *
+     * Cambia el tema del fondo a oscuro.
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * apartado de cambiar a tema oscuro en el menú contextual.
+     */
+    private void cambiarTemaOscuro(ActionEvent event) {
+        //Se obtiene el estilo del fondo.
+        String estilo = stackPane.getStyle();
+
+        //Se quita la imagen del fondo.
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
+
+        //Se añade al fondo la imagen con el tema oscuro
+        stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondoNegro.jpg');");
+    }
+
+    /**
+     *
+     * Cambia el tema del fondo a oscuro.
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * apartado de cambiar a tema oscuro en el menú contextual.
+     */
+    private void cambiarTemaClaro(ActionEvent event) {
+        //Se obtiene el estilo del fondo.
+        String estilo = stackPane.getStyle();
+
+        //Se quita la imagen del fondo.
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
+
+        //Se añade al fondo la imagen con el tema oscuro
+        stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondo.jpg');");
     }
 
     /**

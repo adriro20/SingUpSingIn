@@ -14,7 +14,7 @@
 
 <BorderPane fx:id="bpPrincipal" maxHeight="500.0" maxWidth="600.0" minHeight="500.0" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.SignOutWindowController">
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: url('/img/imgFondo.jpg'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;" BorderPane.alignment="CENTER">
+      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: url('/img/imgFondo.jpg'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" maxHeight="100.0" maxWidth="500.0" minHeight="100.0" minWidth="500.0" prefHeight="100.0" prefWidth="500.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 50;">
                <children>

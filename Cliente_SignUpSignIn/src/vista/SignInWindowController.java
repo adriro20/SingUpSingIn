@@ -36,6 +36,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -106,6 +107,12 @@ public class SignInWindowController implements Initializable {
      */
     @FXML
     BorderPane bpPrincipal;
+
+    /**
+     * Panel que contiene los elementos situados en el centro que actua como fondo.
+     */
+    @FXML
+    StackPane stackPane;
 
     /**
      * Cierra la aplicación.
@@ -226,9 +233,10 @@ public class SignInWindowController implements Initializable {
     }
 
     /**
-     * Alterna la visibilidad de la contraseña (pfPass/tfPass). Si el PasswordField 
-     * está visible, la contraseña no se puede leer, en cambio si el campo que 
-     * está visible es el TextField la contraseña tiene formato de texto plano.
+     * Alterna la visibilidad de la contraseña (pfPass/tfPass). Si el
+     * PasswordField está visible, la contraseña no se puede leer, en cambio si
+     * el campo que está visible es el TextField la contraseña tiene formato de
+     * texto plano.
      *
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * botón "Ver Pass".
@@ -236,10 +244,10 @@ public class SignInWindowController implements Initializable {
     private void verPass(ActionEvent event) {
         //Se obtiene el estilo del botón VerPass.
         String estilo = btnVerPass.getStyle();
-        
+
         //Se quita la imagen del fondo del botón.
         String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
-        
+
         //Se comprueba si el PasswordField o el TextField es visible.
         if (tfPass.isVisible()) {
             //Si el TextField está visible, se alterna la visibilidad, se copia 
@@ -259,10 +267,10 @@ public class SignInWindowController implements Initializable {
     }
 
     /**
-     * Metodo para abrir el menú conceptual en el caso de que se haga clic con 
-     * el botón derecho del ratón, en cambio, si se hace clic con cualqier otro 
+     * Metodo para abrir el menú conceptual en el caso de que se haga clic con
+     * el botón derecho del ratón, en cambio, si se hace clic con cualqier otro
      * botón del raton se cierra el menú.
-     * 
+     *
      * @param event Es el evento que compureba que botón del ratón se clica.
      * @param menu Es el menú contextual que se muestra.
      */
@@ -278,7 +286,43 @@ public class SignInWindowController implements Initializable {
     }
 
     /**
-     * Es el metodo que inicializa la ventana de inicio de sesión, además es la 
+     * 
+     * Cambia el tema del fondo a oscuro.
+     * 
+     * @param event Evento que se dispara cuando el usuario hace clic en el 
+     * apartado de cambiar a tema oscuro en el menú contextual.
+     */
+    private void cambiarTemaOscuro(ActionEvent event) {
+        //Se obtiene el estilo del fondo.
+        String estilo = stackPane.getStyle();
+        
+        //Se quita la imagen del fondo.
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
+        
+        //Se añade al fondo la imagen con el tema oscuro
+        stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondoNegro.jpg');");
+    }
+
+    /**
+     * 
+     * Cambia el tema del fondo a oscuro.
+     * 
+     * @param event Evento que se dispara cuando el usuario hace clic en el 
+     * apartado de cambiar a tema oscuro en el menú contextual.
+     */
+    private void cambiarTemaClaro(ActionEvent event) {
+        //Se obtiene el estilo del fondo.
+        String estilo = stackPane.getStyle();
+        
+        //Se quita la imagen del fondo.
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
+        
+        //Se añade al fondo la imagen con el tema oscuro
+        stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondo.jpg');");
+    }
+
+    /**
+     * Es el metodo que inicializa la ventana de inicio de sesión, además es la
      * que le da las propiedades de recoger eventos a todos los botones.
      *
      * @param location Ubicación del archivo FXML utilizado para crear la
@@ -305,7 +349,9 @@ public class SignInWindowController implements Initializable {
         //botón izquierdo del ratón.
         ContextMenu contextMenu = new ContextMenu();
         MenuItem item1 = new MenuItem("Cambiar a tema oscuro");
+        item1.setOnAction(this::cambiarTemaOscuro);
         MenuItem item2 = new MenuItem("Cambiar a tema claro");
+        item2.setOnAction(this::cambiarTemaClaro);
         contextMenu.getItems().addAll(item1, item2);
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
 

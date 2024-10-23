@@ -38,6 +38,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -158,6 +159,13 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     Button btnSignUp;
+
+    /**
+     * Panel que contiene los elementos situados en el centro que actua como
+     * fondo.
+     */
+    @FXML
+    StackPane stackPane;
 
     /**
      * Maneja el proceso de registro.
@@ -391,6 +399,42 @@ public class SignUpWindowController implements Initializable {
     }
 
     /**
+     *
+     * Cambia el tema del fondo a oscuro.
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * apartado de cambiar a tema oscuro en el menú contextual.
+     */
+    private void cambiarTemaOscuro(ActionEvent event) {
+        //Se obtiene el estilo del fondo.
+        String estilo = stackPane.getStyle();
+
+        //Se quita la imagen del fondo.
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
+
+        //Se añade al fondo la imagen con el tema oscuro
+        stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondoNegro.jpg');");
+    }
+
+    /**
+     *
+     * Cambia el tema del fondo a oscuro.
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * apartado de cambiar a tema oscuro en el menú contextual.
+     */
+    private void cambiarTemaClaro(ActionEvent event) {
+        //Se obtiene el estilo del fondo.
+        String estilo = stackPane.getStyle();
+
+        //Se quita la imagen del fondo.
+        String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
+
+        //Se añade al fondo la imagen con el tema oscuro
+        stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondo.jpg');");
+    }
+
+    /**
      * Es el metodo que inicializa la ventana de registro, además es la que le
      * da las propiedades de recoger eventos a todos los botones.
      *
@@ -406,7 +450,7 @@ public class SignUpWindowController implements Initializable {
             stage.setResizable(false);
             stage.setTitle("Registro");
         });
-        
+
         //Se crean los tooltips para todos los campos de texto.
         Tooltip tooltip = new Tooltip("Nombre y nos apellidos");
         tfNombre.setTooltip(tooltip);
@@ -424,7 +468,9 @@ public class SignUpWindowController implements Initializable {
         //botón izquierdo del ratón.
         ContextMenu contextMenu = new ContextMenu();
         MenuItem item1 = new MenuItem("Cambiar a tema oscuro");
+        item1.setOnAction(this::cambiarTemaOscuro);
         MenuItem item2 = new MenuItem("Cambiar a tema claro");
+        item2.setOnAction(this::cambiarTemaClaro);
         contextMenu.getItems().addAll(item1, item2);
 
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));

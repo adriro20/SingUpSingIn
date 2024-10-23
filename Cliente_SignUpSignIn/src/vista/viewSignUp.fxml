@@ -29,7 +29,7 @@
         </HBox>
     </top>
     <center>
-        <StackPane prefHeight="392.0" prefWidth="620.0" style="-fx-background-image: url('/img/imgFondo.jpg'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;" BorderPane.alignment="CENTER">
+        <StackPane fx:id="stackPane" prefHeight="392.0" prefWidth="620.0" style="-fx-background-image: url('/img/imgFondo.jpg'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;" BorderPane.alignment="CENTER">
             <children>
                 <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2; -fx-background-radius: 50;" StackPane.alignment="CENTER">
                     <StackPane.margin>
