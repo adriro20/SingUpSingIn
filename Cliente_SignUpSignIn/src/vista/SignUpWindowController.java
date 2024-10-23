@@ -166,7 +166,9 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     StackPane stackPane;
-
+    
+    /**Variable para saber si el tema esta en oscuro o claro*/
+    private boolean oscuro;
     /**
      * Maneja el proceso de registro.
      *
@@ -232,7 +234,13 @@ public class SignUpWindowController implements Initializable {
                 // Se carga el FXML con la información de la vista viewSignOut.
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignOut.fxml"));
                 Parent root = loader.load();
-
+                //abrir el controlado de la vista para poner el tema oscuro o claro
+                SignOutWindowController controler = loader.getController();
+                if (oscuro) {
+                    controler.cambiarTemaOscuro(event);
+                } else {
+                    controler.cambiarTemaClaro(event);
+                }
                 // Obtener el Stage desde el nodo que disparó el evento
                 Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
@@ -359,13 +367,18 @@ public class SignUpWindowController implements Initializable {
             // Se carga el FXML con la información de la vista viewSignIn.
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignIn.fxml"));
             Parent root = loader.load();
-
+            SignInWindowController controler = loader.getController();
+             if(oscuro){
+                controler.cambiarTemaOscuro(event);
+            }else{
+                controler.cambiarTemaClaro(event);
+            }
             // Obtener el Stage desde el nodo que disparó el evento.
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
             // Se crea un nuevo objeto de la clase Scene con el FXML cargado.
             Scene scene = new Scene(root);
-
+            
             // Se muestra en la ventana el Scene creado.
             stage.setScene(scene);
             stage.show();
@@ -405,7 +418,7 @@ public class SignUpWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * apartado de cambiar a tema oscuro en el menú contextual.
      */
-    private void cambiarTemaOscuro(ActionEvent event) {
+    public void cambiarTemaOscuro(ActionEvent event) {
         //Se obtiene el estilo del fondo.
         String estilo = stackPane.getStyle();
 
@@ -414,6 +427,8 @@ public class SignUpWindowController implements Initializable {
 
         //Se añade al fondo la imagen con el tema oscuro
         stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondoNegro.jpg');");
+        //cambiar el boolean oscuro a true
+        oscuro=true;
     }
 
     /**
@@ -423,7 +438,7 @@ public class SignUpWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * apartado de cambiar a tema oscuro en el menú contextual.
      */
-    private void cambiarTemaClaro(ActionEvent event) {
+    public void cambiarTemaClaro(ActionEvent event) {
         //Se obtiene el estilo del fondo.
         String estilo = stackPane.getStyle();
 
@@ -432,8 +447,11 @@ public class SignUpWindowController implements Initializable {
 
         //Se añade al fondo la imagen con el tema oscuro
         stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondo.jpg');");
+        //cambiar el boolean oscuro a false
+        oscuro=false;
     }
-
+    
+  
     /**
      * Es el metodo que inicializa la ventana de registro, además es la que le
      * da las propiedades de recoger eventos a todos los botones.
@@ -450,7 +468,7 @@ public class SignUpWindowController implements Initializable {
             stage.setResizable(false);
             stage.setTitle("Registro");
         });
-
+          
         //Se crean los tooltips para todos los campos de texto.
         Tooltip tooltip = new Tooltip("Nombre y nos apellidos");
         tfNombre.setTooltip(tooltip);

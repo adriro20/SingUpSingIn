@@ -113,7 +113,9 @@ public class SignInWindowController implements Initializable {
      */
     @FXML
     StackPane stackPane;
-
+    
+    /**Variable para saber si el tema esta en oscuro o claro*/
+    private boolean oscuro;
     /**
      * Cierra la aplicación.
      *
@@ -174,7 +176,13 @@ public class SignInWindowController implements Initializable {
                 // Se carga el FXML con la información de la vista viewSignOut.
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignOut.fxml"));
                 Parent root = loader.load();
-
+                //abrir el controlado de la vista para poner el tema oscuro o claro
+                SignOutWindowController controler = loader.getController();
+                if (oscuro) {
+                    controler.cambiarTemaOscuro(event);
+                } else {
+                    controler.cambiarTemaClaro(event);
+                }
                 // Obtener el Stage desde el nodo que disparó el evento.
                 Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
@@ -212,7 +220,14 @@ public class SignInWindowController implements Initializable {
             // Se carga el FXML con la información de la vista viewSignUp.
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignUp.fxml"));
             Parent root = loader.load();
-
+            
+            SignUpWindowController controler = loader.getController();
+            if(oscuro){
+                controler.cambiarTemaOscuro(event);
+            }else{
+                controler.cambiarTemaClaro(event);
+            }
+            
             // Obtener el Stage desde el nodo que disparó el evento.
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
@@ -292,7 +307,7 @@ public class SignInWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario hace clic en el 
      * apartado de cambiar a tema oscuro en el menú contextual.
      */
-    private void cambiarTemaOscuro(ActionEvent event) {
+    public void cambiarTemaOscuro(ActionEvent event) {
         //Se obtiene el estilo del fondo.
         String estilo = stackPane.getStyle();
         
@@ -301,6 +316,8 @@ public class SignInWindowController implements Initializable {
         
         //Se añade al fondo la imagen con el tema oscuro
         stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondoNegro.jpg');");
+        //cambiar el boolean oscuro a true
+        oscuro = true;
     }
 
     /**
@@ -310,7 +327,7 @@ public class SignInWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario hace clic en el 
      * apartado de cambiar a tema oscuro en el menú contextual.
      */
-    private void cambiarTemaClaro(ActionEvent event) {
+    public void cambiarTemaClaro(ActionEvent event) {
         //Se obtiene el estilo del fondo.
         String estilo = stackPane.getStyle();
         
@@ -319,6 +336,8 @@ public class SignInWindowController implements Initializable {
         
         //Se añade al fondo la imagen con el tema oscuro
         stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondo.jpg');");
+        //cambiar el boolean oscuro a false
+        oscuro=false;
     }
 
     /**
@@ -336,8 +355,11 @@ public class SignInWindowController implements Initializable {
             Stage stage = (Stage) bpPrincipal.getScene().getWindow();
             stage.setResizable(false);
             stage.setTitle("Inicio de sesión");
+            
         });
+        
 
+        
         //Se añaden los listeners a todos los botones.
         btnSalir.setOnAction(this::closeApp);
         btnVerPass.setOnAction(this::verPass);
@@ -354,7 +376,8 @@ public class SignInWindowController implements Initializable {
         item2.setOnAction(this::cambiarTemaClaro);
         contextMenu.getItems().addAll(item1, item2);
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
-
+        
+       
     }
 
 }

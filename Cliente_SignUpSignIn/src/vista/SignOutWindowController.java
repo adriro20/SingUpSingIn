@@ -69,7 +69,8 @@ public class SignOutWindowController implements Initializable {
      */
     @FXML
     StackPane stackPane;
-
+    /**Variable para saber si el tema esta en oscuro o claro*/
+    private boolean oscuro;
     /**
      * Es el metodo qeu inicializa la ventana de inicio de sesión, además es la
      * que le da las propiedades de recoger eventos a todos los botones.
@@ -143,7 +144,13 @@ public class SignOutWindowController implements Initializable {
                 // Se carga el FXML con la información de la vista viewSignIn.
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignIn.fxml"));
                 Parent root = loader.load();
-                
+                //abrir el controlado de la vista para poner el tema oscuro o claro
+                SignInWindowController controler = loader.getController();
+                if(oscuro){
+                    controler.cambiarTemaOscuro(event);
+                }else{
+                    controler.cambiarTemaClaro(event);
+                 }
                 // Obtener el Stage desde el botón que disparó el evento.
                 Stage stage;
                 if(event.getSource() instanceof javafx.scene.control.MenuItem){
@@ -178,7 +185,7 @@ public class SignOutWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * apartado de cambiar a tema oscuro en el menú contextual.
      */
-    private void cambiarTemaOscuro(ActionEvent event) {
+    public void cambiarTemaOscuro(ActionEvent event) {
         //Se obtiene el estilo del fondo.
         String estilo = stackPane.getStyle();
 
@@ -187,6 +194,8 @@ public class SignOutWindowController implements Initializable {
 
         //Se añade al fondo la imagen con el tema oscuro
         stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondoNegro.jpg');");
+        //cambiar el boolean oscuro a true
+        oscuro=true;
     }
 
     /**
@@ -196,7 +205,7 @@ public class SignOutWindowController implements Initializable {
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * apartado de cambiar a tema oscuro en el menú contextual.
      */
-    private void cambiarTemaClaro(ActionEvent event) {
+    public void cambiarTemaClaro(ActionEvent event) {
         //Se obtiene el estilo del fondo.
         String estilo = stackPane.getStyle();
 
@@ -205,6 +214,9 @@ public class SignOutWindowController implements Initializable {
 
         //Se añade al fondo la imagen con el tema oscuro
         stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondo.jpg');");
+        
+        //cambiar el boolean oscuro a false
+        oscuro=false;
     }
 
     /**
