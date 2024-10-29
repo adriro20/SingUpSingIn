@@ -33,6 +33,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -267,14 +268,12 @@ public class SignInWindowController implements Initializable {
         if (tfPass.isVisible()) {
             //Si el TextField está visible, se alterna la visibilidad, se copia 
             //el texto en el PasswordField y se cambia la imagen de fondo.
-            pfPass.setText(tfPass.getText());
             pfPass.setVisible(true);
             tfPass.setVisible(false);
             btnVerPass.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoAbierto.png');");
         } else {
             //Si el PasswordField está visible, se alterna la visibilidad, se copia 
             //el texto en el PasswordField y se cambia la imagen de fondo.
-            tfPass.setText(pfPass.getText());
             tfPass.setVisible(true);
             pfPass.setVisible(false);
             btnVerPass.setStyle(estiloNuevo + "-fx-background-image: url('/img/iconoOjoCerrado.png');");
@@ -339,6 +338,13 @@ public class SignInWindowController implements Initializable {
         //cambiar el boolean oscuro a false
         oscuro=false;
     }
+    
+    private void escribirPassEnTf(KeyEvent event){
+        tfPass.setText(pfPass.getText());
+    }
+    private void escribirPassenPf(KeyEvent event){
+        pfPass.setText(tfPass.getText());
+    }
 
     /**
      * Es el metodo que inicializa la ventana de inicio de sesión, además es la
@@ -366,6 +372,9 @@ public class SignInWindowController implements Initializable {
         btnSignIn.setOnAction(this::signIn);
         hlSignUp.setOnAction(this::signUp);
         hlCrear.setOnAction(this::signUp);
+        
+        pfPass.setOnKeyTyped(this::escribirPassEnTf);
+        tfPass.setOnKeyTyped(this::escribirPassenPf);
 
         //Se crea el menú contextual, el cual se mostrará si se hace clic con el 
         //botón izquierdo del ratón.
