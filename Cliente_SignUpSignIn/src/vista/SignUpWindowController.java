@@ -35,6 +35,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -451,6 +452,23 @@ public class SignUpWindowController implements Initializable {
         oscuro=false;
     }
     
+    /**
+     * sirve para al ver contraseña pasar la informacion
+     * @param event 
+     */
+    private void escribirPassEnTf(KeyEvent event) {
+        tfPass.setText(pfPass.getText());
+        tfPass2.setText(pfPass2.getText());
+    }
+    
+    /**
+     * sirve para al ver contraseña pasar la informacion hacia el otro lado
+     * @param event 
+     */
+    private void escribirPassenPf(KeyEvent event) {
+        pfPass.setText(tfPass.getText());
+        pfPass2.setText(tfPass2.getText());
+    }
   
     /**
      * Es el metodo que inicializa la ventana de registro, además es la que le
@@ -481,7 +499,12 @@ public class SignUpWindowController implements Initializable {
         pfPass.setTooltip(tooltip4);
         tfPass2.setTooltip(tooltip4);
         pfPass2.setTooltip(tooltip4);
-
+        
+        
+        pfPass.setOnKeyTyped(this::escribirPassEnTf);
+        tfPass.setOnKeyTyped(this::escribirPassenPf);
+        pfPass2.setOnKeyTyped(this::escribirPassEnTf);
+        tfPass2.setOnKeyTyped(this::escribirPassenPf);
         //Se crea el menú contextual, el cual se mostrará si se hace clic con el 
         //botón izquierdo del ratón.
         ContextMenu contextMenu = new ContextMenu();

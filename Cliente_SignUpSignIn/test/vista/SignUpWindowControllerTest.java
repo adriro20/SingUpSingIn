@@ -25,21 +25,23 @@ public class SignUpWindowControllerTest extends ApplicationTest{
     public SignUpWindowControllerTest() {
     }
     /**
-     * Abre la vista ViewSingUp
+     * Abre la vista ViewSingIn
      * @param stage
      * @throws Exception 
      */
     @Override
     public void start(Stage stage) throws Exception{
-        new MainSingUp().start(stage);
+        new Main().start(stage);
     }
     
     /**
+     * abre la ventana ViewSingUp y 
      * comprueba que el registro se hace de manera correcta
      */
     @Test
     public void testSingUpOK() {
-         clickOn("#tfNombre");
+        clickOn("#hlCrear");
+        clickOn("#tfNombre");
         write("Diu garcia");
         clickOn("#tfCorreo");
         write("test@gmail.com");
