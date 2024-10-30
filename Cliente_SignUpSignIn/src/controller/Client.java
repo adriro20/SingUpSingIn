@@ -38,7 +38,7 @@ public class Client implements Signable {
      * Número de puerto para la conexión con el servidor, cargado desde el
      * archivo de propiedades infoClient.
      */
-    int puerto = Integer.getInteger(ResourceBundle.getBundle("model.infoClient").getString("PUERTO"));
+    int puerto = Integer.valueOf(ResourceBundle.getBundle("model.infoClient").getString("PUERTO"));
 
     /**
      * Dirección IP para la conexión con el servidor, cargado desde el archivo

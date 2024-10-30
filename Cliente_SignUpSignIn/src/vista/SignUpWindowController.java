@@ -193,7 +193,7 @@ public class SignUpWindowController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Te Falta algun campo por rellenar", ButtonType.OK).showAndWait();
 
             //Se comprueba si la contraseña cumple los requisitos.
-        } else if (pfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
+        } else if (!pfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
             //Si no es válida se muestra un mensaje.
             new Alert(Alert.AlertType.ERROR, "La contraseña no es valida", ButtonType.OK).showAndWait();
 

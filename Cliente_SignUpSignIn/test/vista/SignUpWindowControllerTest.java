@@ -32,6 +32,7 @@ public class SignUpWindowControllerTest extends ApplicationTest{
     @Override
     public void start(Stage stage) throws Exception{
         new Main().start(stage);
+        clickOn("#hlCrear");
     }
     
     /**
@@ -40,11 +41,10 @@ public class SignUpWindowControllerTest extends ApplicationTest{
      */
     @Test
     public void testSingUpOK() {
-        clickOn("#hlCrear");
         clickOn("#tfNombre");
         write("Diu garcia");
         clickOn("#tfCorreo");
-        write("test@gmail.com");
+        write("test3@gmail.com");
         clickOn("#tfZip");
         write("48610");
         clickOn("#tfCiudad");
@@ -65,11 +65,11 @@ public class SignUpWindowControllerTest extends ApplicationTest{
      * comprueba que comprueba si el email ya esta
      */
     @Test
-    public void testSingUpError(){
+    public void AtestSingUpError(){
         clickOn("#tfNombre");
-        write("Diu garcia");
+        write("Diu garciasssssssssss");
         clickOn("#tfCorreo");
-        write("test@gmail.com");
+        write("rocha@gmail.com");
         clickOn("#tfZip");
         write("48610");
         clickOn("#tfCiudad");
@@ -77,11 +77,11 @@ public class SignUpWindowControllerTest extends ApplicationTest{
         clickOn("#tfCalle");
         write("calle");
         clickOn("#pfPass");
-        write("Test1234");
+        write("Abc123");
         clickOn("#pfPass2");
-        write("Test1234");
-        clickOn("#btnSignIn");
+        write("Abc123");
+        clickOn("#btnSignUp");
         verifyThat("El correo con el que intentas registrarte ya existe.", isVisible());
-        clickOn("OK");
+        clickOn("Aceptar");
     }
 }

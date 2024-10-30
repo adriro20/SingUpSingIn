@@ -30,9 +30,9 @@ public class SignInWindowControllerTest extends ApplicationTest {
     public void testSignInOK(){
         //Datos guardados en la BD
         clickOn("#tfCorreo");
-        write("julen@gmail.com");
+        write("rocha@gmail.com");
         clickOn("#pfPass");
-        write("Abcd*1234");
+        write("Rochass1");
         clickOn("#btnSignIn");
         
         verifyThat("#btnCerrarSesion",isVisible());
@@ -43,14 +43,14 @@ public class SignInWindowControllerTest extends ApplicationTest {
     public void testSignInError(){
         //Datos no guardados en la BD
         clickOn("#tfCorreo");
-        write("julen@gmail.org");
+        write("asofhre@gmail.org");
         clickOn("#pfPass");
         write("Abcd*1234");
         clickOn("#btnSignIn");
         
         verifyThat("El correo y/o la contraseña no coinciden con el de ningún usuario registrado.",isVisible());
         
-        clickOn("OK");
+        clickOn("Aceptar");
         
     }
 
