@@ -208,7 +208,7 @@ public class SignUpWindowController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Codigo Postal Incorrecto", ButtonType.OK).showAndWait();
 
             //Se comprueban los requisitos del email.
-        } else if (!tfCorreo.getText().matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
+        } else if (!tfCorreo.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$")) {
             //Si no los cumple se muestra un mensaje.
             new Alert(Alert.AlertType.ERROR, "Ese correo electronico no es valido", ButtonType.OK).showAndWait();
 
