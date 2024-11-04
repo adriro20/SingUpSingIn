@@ -12,6 +12,7 @@ import clases.User;
 import excepciones.InternalServerErrorException;
 import excepciones.LogInDataException;
 import excepciones.NoConnectionsAvailableException;
+import excepciones.ServerClosedException;
 import excepciones.UserNotActiveException;
 import java.io.IOException;
 import javafx.scene.control.TextField;
@@ -228,7 +229,7 @@ public class SignInWindowController implements Initializable {
                 // "Error en la sincronización de ventanas, intentalo más tarde".
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde", ButtonType.OK).showAndWait();
-            } catch (InternalServerErrorException | LogInDataException | NoConnectionsAvailableException | UserNotActiveException ex) {
+            } catch (InternalServerErrorException | LogInDataException | NoConnectionsAvailableException | UserNotActiveException | ServerClosedException ex) {
                 // Si salta alguna de las excepciones creadas por nosotros se 
                 // muestra un Alert con el mensaje correspondiente de 
                 // cada una de ellas.

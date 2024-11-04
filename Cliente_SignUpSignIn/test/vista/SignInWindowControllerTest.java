@@ -5,6 +5,9 @@
  */
 package vista;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
@@ -13,18 +16,51 @@ import static org.testfx.api.FxAssert.verifyThat;
 import org.testfx.framework.junit.ApplicationTest;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
+
 /**
  *
- * @author 2dam
+ * @author Julen Hidalgo
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SignInWindowControllerTest extends ApplicationTest {
 
+    Process ejecutarServer;
+    
     @Override
     public void start(Stage stage) throws Exception {
         new Main().start(stage);
     }
+    
+    //@AfterAll
+    public void cerrarServidor(){
+        ejecutarServer.destroy();
+    }
 
+    @Test
+    public void testServerClosed() {
+        //Datos guardados en la BD
+        clickOn("#tfCorreo");
+        write("aaaaaaaaaaaaaaaaaaaaaa@gmail.com");
+        clickOn("#pfPass");
+        write("Abcd*1234");
+        clickOn("#btnSignIn");
+
+        verifyThat("El servidor no está disponible en este momento, intentalo más tarde", isVisible());
+        
+        clickOn("Aceptar");
+        
+        ProcessBuilder abrirServer = new ProcessBuilder("java", "-jar", 
+                "C:\\Users\\2dam.TARTANGALH\\Desktop\\SignUpSignIn\\SignUpSignInServerGit\\SingUpSingInServer\\Server_SignUpSignIn\\dist\\Server_SignUpSignIn.jar");
+        try {
+            ejecutarServer = abrirServer.start();
+            Thread.sleep(5000);
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(SignInWindowControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     @Test
     public void testSignInOK() {
         //Datos guardados en la BD

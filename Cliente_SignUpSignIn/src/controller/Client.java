@@ -15,6 +15,7 @@ import clases.User;
 import excepciones.InternalServerErrorException;
 import excepciones.LogInDataException;
 import excepciones.NoConnectionsAvailableException;
+import excepciones.ServerClosedException;
 import excepciones.UserExitsException;
 import excepciones.UserNotActiveException;
 import java.io.IOException;
@@ -81,7 +82,7 @@ public class Client implements Signable {
      * @throws UserNotActiveException si el usuario no está activo en la BD.
      */
     @Override
-    public User signIn(Message mensaje) throws InternalServerErrorException, LogInDataException, NoConnectionsAvailableException, UserNotActiveException {
+    public User signIn(Message mensaje) throws InternalServerErrorException, LogInDataException, NoConnectionsAvailableException, UserNotActiveException, ServerClosedException {
         try {
             //Establece la conexión con el servidor con la IP y el puerto.
             socket = new Socket(ip, puerto);
@@ -110,7 +111,7 @@ public class Client implements Signable {
             }
             //Si sucede algún otro error se lanza la excepción InternalServerErrorException.
         } catch (IOException | ClassNotFoundException e) {
-            throw new InternalServerErrorException();
+            throw new ServerClosedException();
         } finally {
             try {
                 //Se cierra la conexión y los flujos de salida y entrada.
