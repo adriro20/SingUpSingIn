@@ -40,6 +40,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Controlador de la ventana de inicio de sesión (viewSignIn).
@@ -111,22 +112,26 @@ public class SignInWindowController implements Initializable {
     BorderPane bpPrincipal;
 
     /**
-     * Panel que contiene los elementos situados en el centro que actua como fondo.
+     * Panel que contiene los elementos situados en el centro que actua como
+     * fondo.
      */
     @FXML
     StackPane stackPane;
-    
-    /**Variable para saber si el tema esta en oscuro o claro*/
-    private boolean oscuro;
+
     /**
-     * Cierra la aplicación.
+     * Variable para saber si el tema esta en oscuro o claro
+     */
+    private boolean oscuro;
+
+    /**
+     * Cierra la aplicación cuando le haces clic en el botón de salir.
      *
      * Solicita confirmación del usuario antes de cerrar la aplicación.
      *
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * botón "Salir".
      */
-    private void closeApp(ActionEvent event) {
+    private void closeAppFromButton(ActionEvent event) {
         //Se muestra un Alert con dos opciones para confirmar que el usuario 
         //quiere cerrar la app.
         Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
@@ -134,6 +139,27 @@ public class SignInWindowController implements Initializable {
         //Si la confirmación del Alert es verdadera, se cierra el programa.
         if (confirmar.get() == ButtonType.YES) {
             Platform.exit();
+        }
+    }
+
+    /**
+     * Cierra la aplicación cuando le haces clic en la X de la ventana.
+     *
+     * Solicita confirmación del usuario antes de cerrar la aplicación.
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * botón "Salir".
+     */
+    private void closeAppFromX(WindowEvent event) {
+        //Se muestra un Alert con dos opciones para confirmar que el usuario 
+        //quiere cerrar la app.
+        Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
+
+        //Si la confirmación del Alert es verdadera, se cierra el programa.
+        if (confirmar.get() == ButtonType.YES) {
+            Platform.exit();
+        }else{
+            event.consume();
         }
     }
 
@@ -222,14 +248,14 @@ public class SignInWindowController implements Initializable {
             // Se carga el FXML con la información de la vista viewSignUp.
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignUp.fxml"));
             Parent root = loader.load();
-            
+
             SignUpWindowController controler = loader.getController();
-            if(oscuro){
+            if (oscuro) {
                 controler.cambiarTemaOscuro(event);
-            }else{
+            } else {
                 controler.cambiarTemaClaro(event);
             }
-            
+
             // Obtener el Stage desde el nodo que disparó el evento.
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
@@ -301,19 +327,19 @@ public class SignInWindowController implements Initializable {
     }
 
     /**
-     * 
+     *
      * Cambia el tema del fondo a oscuro.
-     * 
-     * @param event Evento que se dispara cuando el usuario hace clic en el 
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
      * apartado de cambiar a tema oscuro en el menú contextual.
      */
     public void cambiarTemaOscuro(ActionEvent event) {
         //Se obtiene el estilo del fondo.
         String estilo = stackPane.getStyle();
-        
+
         //Se quita la imagen del fondo.
         String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
-        
+
         //Se añade al fondo la imagen con el tema oscuro
         stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondoNegro.jpg');");
         //cambiar el boolean oscuro a true
@@ -321,29 +347,30 @@ public class SignInWindowController implements Initializable {
     }
 
     /**
-     * 
+     *
      * Cambia el tema del fondo a oscuro.
-     * 
-     * @param event Evento que se dispara cuando el usuario hace clic en el 
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
      * apartado de cambiar a tema oscuro en el menú contextual.
      */
     public void cambiarTemaClaro(ActionEvent event) {
         //Se obtiene el estilo del fondo.
         String estilo = stackPane.getStyle();
-        
+
         //Se quita la imagen del fondo.
         String estiloNuevo = estilo.replace("-fx-background-image: url\\('.*'\\);", "");
-        
+
         //Se añade al fondo la imagen con el tema oscuro
         stackPane.setStyle(estiloNuevo + "-fx-background-image: url('/img/imgFondo.jpg');");
         //cambiar el boolean oscuro a false
-        oscuro=false;
+        oscuro = false;
     }
-    
-    private void escribirPassEnTf(KeyEvent event){
+
+    private void escribirPassEnTf(KeyEvent event) {
         tfPass.setText(pfPass.getText());
     }
-    private void escribirPassenPf(KeyEvent event){
+
+    private void escribirPassenPf(KeyEvent event) {
         pfPass.setText(tfPass.getText());
     }
 
@@ -359,21 +386,20 @@ public class SignInWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //Se le quita la propiedad Resizable a la ventana y se le añade el título.
         Platform.runLater(() -> {
-            Stage stage = (Stage) bpPrincipal.getScene().getWindow();
-            stage.setResizable(false);
-            stage.setTitle("Inicio de sesión");
-            
-        });
-        
+            Stage stagePrincipal = (Stage) bpPrincipal.getScene().getWindow();
+            stagePrincipal.setResizable(false);
+            stagePrincipal.setTitle("Inicio de sesión");
+            stagePrincipal.setOnCloseRequest(this::closeAppFromX);
 
-        
+        });
+
         //Se añaden los listeners a todos los botones.
-        btnSalir.setOnAction(this::closeApp);
+        btnSalir.setOnAction(this::closeAppFromButton);
         btnVerPass.setOnAction(this::verPass);
         btnSignIn.setOnAction(this::signIn);
         hlSignUp.setOnAction(this::signUp);
         hlCrear.setOnAction(this::signUp);
-        
+
         pfPass.setOnKeyTyped(this::escribirPassEnTf);
         tfPass.setOnKeyTyped(this::escribirPassenPf);
 
@@ -386,8 +412,7 @@ public class SignInWindowController implements Initializable {
         item2.setOnAction(this::cambiarTemaClaro);
         contextMenu.getItems().addAll(item1, item2);
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
-        
-       
+
     }
 
 }

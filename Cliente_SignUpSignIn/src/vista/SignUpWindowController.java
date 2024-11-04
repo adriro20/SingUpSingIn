@@ -41,6 +41,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Controlador de la ventana de registro (viewSignUp).
@@ -271,14 +272,14 @@ public class SignUpWindowController implements Initializable {
     }
 
     /**
-     * Cierra la aplicación.
+     * Cierra la aplicación cuando le haces clic en el botón de salir.
      *
      * Solicita confirmación del usuario antes de cerrar la aplicación.
      *
      * @param event Evento que se dispara cuando el usuario hace clic en el
      * botón "Salir".
      */
-    private void closeApp(ActionEvent event) {
+    private void closeAppFromButton(ActionEvent event) {
         //Se muestra un Alert con dos opciones para confirmar que el usuario 
         //quiere cerrar la app.
         Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
@@ -286,6 +287,27 @@ public class SignUpWindowController implements Initializable {
         //Si la confirmación del Alert es verdadera, se cierra el programa.
         if (confirmar.get() == ButtonType.YES) {
             Platform.exit();
+        }
+    }
+
+    /**
+     * Cierra la aplicación cuando le haces clic en la X de la ventana.
+     *
+     * Solicita confirmación del usuario antes de cerrar la aplicación.
+     *
+     * @param event Evento que se dispara cuando el usuario hace clic en el
+     * botón "Salir".
+     */
+    private void closeAppFromX(WindowEvent event) {
+        //Se muestra un Alert con dos opciones para confirmar que el usuario 
+        //quiere cerrar la app.
+        Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
+
+        //Si la confirmación del Alert es verdadera, se cierra el programa.
+        if (confirmar.get() == ButtonType.YES) {
+            Platform.exit();
+        }else{
+            event.consume();
         }
     }
 
@@ -485,6 +507,7 @@ public class SignUpWindowController implements Initializable {
             Stage stage = (Stage) bpPrincipal.getScene().getWindow();
             stage.setResizable(false);
             stage.setTitle("Registro");
+            stage.setOnCloseRequest(this::closeAppFromX);
         });
           
         //Se crean los tooltips para todos los campos de texto.
@@ -518,7 +541,7 @@ public class SignUpWindowController implements Initializable {
 
         //Se añaden los listeners a todos los botones.
         hlSignIn.setOnAction(this::irSignIn);
-        btnSalir.setOnAction(this::closeApp);
+        btnSalir.setOnAction(this::closeAppFromButton);
         btnVerPass.setOnAction(this::verPass);
         btnVerPass2.setOnAction(this::verPass2);
         btnSignUp.setOnAction(this::signUp);
