@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.stage.Stage;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
@@ -24,15 +25,15 @@ import static org.testfx.matcher.base.NodeMatchers.isVisible;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SignInWindowControllerTest extends ApplicationTest {
 
-    Process ejecutarServer;
+    public static Process ejecutarServer;
     
     @Override
     public void start(Stage stage) throws Exception {
         new Main().start(stage);
     }
     
-    //@AfterAll
-    public void cerrarServidor(){
+    @AfterClass
+    public static void cerrarServidor(){
         ejecutarServer.destroy();
     }
 
