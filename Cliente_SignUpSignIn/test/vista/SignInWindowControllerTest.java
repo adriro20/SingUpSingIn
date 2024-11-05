@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controller.Main;
 import excepciones.LogInDataException;
 import java.io.IOException;
 import java.util.logging.Level;

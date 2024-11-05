@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controller.Main;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.stage.Stage;

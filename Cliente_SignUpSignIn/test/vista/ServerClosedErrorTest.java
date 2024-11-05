@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controller.Main;
 import javafx.stage.Stage;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
