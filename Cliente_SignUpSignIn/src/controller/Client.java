@@ -6,6 +6,7 @@
 package controller;
 
 import clases.Message;
+import clases.Request;
 import static clases.Request.CONNECTIONS_EXCEPTION;
 import static clases.Request.INTERNAL_EXCEPTION;
 import static clases.Request.LOG_IN_EXCEPTION;
@@ -69,7 +70,7 @@ public class Client implements Signable {
      * Este método maneja las respuestas del servidor y lanza excepciones
      * específicas si ocurren problemas durante el proceso de inicio de sesión
      *
-     * @param mensaje El objeto Message que contiene los datos de inicio de
+     * @param user El objeto User que contiene los datos de inicio de
      * sesión para enviar al servidor.
      * @return mensaje.getUser(), el mismo User enviado, si el inicio de sesión
      * es exitoso, en caso contrario lanza una excepción.
@@ -82,7 +83,7 @@ public class Client implements Signable {
      * @throws UserNotActiveException si el usuario no está activo en la BD.
      */
     @Override
-    public User signIn(Message mensaje) throws InternalServerErrorException, LogInDataException, NoConnectionsAvailableException, UserNotActiveException, ServerClosedException {
+    public User signIn(User user) throws InternalServerErrorException, LogInDataException, NoConnectionsAvailableException, UserNotActiveException, ServerClosedException {
         try {
             //Establece la conexión con el servidor con la IP y el puerto.
             socket = new Socket(ip, puerto);
@@ -91,6 +92,14 @@ public class Client implements Signable {
             entrada = new ObjectInputStream(socket.getInputStream());
             salida = new ObjectOutputStream(socket.getOutputStream());
 
+            Message mensaje = new Message();
+            
+            //Se añade el User creado al Message.
+            mensaje.setUser(user);
+
+            //Se le añade al Message el Request SING_IN_REQUEST.
+            mensaje.setRequest(Request.SING_IN_REQUEST);
+            
             //Envia el mensaje al servidor.
             salida.writeObject(mensaje);
 
@@ -133,7 +142,7 @@ public class Client implements Signable {
         }
         //Si todo ha ido correctamente, es decir, si en el mensaje del servidor 
         //no devuelto ningún error, se devuelve el mismo User enviado.
-        return mensaje.getUser();
+        return user;
 
     }
 
@@ -144,7 +153,7 @@ public class Client implements Signable {
      * Este método maneja las respuestas del servidor y lanza excepciones
      * específicas si ocurren problemas durante el proceso de inicio de sesión
      *
-     * @param mensaje El objeto Message que contiene los datos de inicio de
+     * @param user El objeto User que contiene los datos de inicio de
      * sesión para enviar al servidor.
      *
      * @return mensaje.getUser(), el mismo User enviado, si el inicio de sesión
@@ -159,7 +168,7 @@ public class Client implements Signable {
      * en el pool de conexiones del servidor.
      */
     @Override
-    public User signUp(Message mensaje) throws InternalServerErrorException, UserExitsException, NoConnectionsAvailableException {
+    public User signUp(User user) throws InternalServerErrorException, UserExitsException, NoConnectionsAvailableException, ServerClosedException {
         try {
             //Establece la conexión con el servidor con la IP y el puerto.
             socket = new Socket(ip, puerto);
@@ -167,7 +176,15 @@ public class Client implements Signable {
             //Inicializa los flujos de entrada y salida para enviar y recoger datos.
             entrada = new ObjectInputStream(socket.getInputStream());
             salida = new ObjectOutputStream(socket.getOutputStream());
+            
+            Message mensaje = new Message();
+            
+            //Se añade el User creado al Message.
+            mensaje.setUser(user);
 
+            //Se le añade al Message el Request SING_IN_REQUEST.
+            mensaje.setRequest(Request.SING_IN_REQUEST);
+            
             //Envia el mensaje al servidor.
             salida.writeObject(mensaje);
 
@@ -186,7 +203,7 @@ public class Client implements Signable {
             }
             //Si sucede algún otro error se lanza la excepción InternalServerErrorException.
         } catch (IOException | ClassNotFoundException e) {
-            throw new InternalServerErrorException();
+            throw new ServerClosedException();
         } finally {
             try {
                 //Se cierra la conexión y los flujos de salida y entrada.
@@ -208,7 +225,7 @@ public class Client implements Signable {
         }
         //Si todo ha ido correctamente, es decir, si en el mensaje del servidor 
         //no devuelto ningún error, se devuelve el mismo User enviado.
-        return mensaje.getUser();
+        return user;
 
     }
 

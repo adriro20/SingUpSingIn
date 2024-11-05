@@ -5,7 +5,11 @@
  */
 package vista;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.stage.Stage;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
@@ -22,8 +26,6 @@ import static org.testfx.matcher.base.NodeMatchers.isVisible;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SignUpWindowControllerTest extends ApplicationTest{
     
-    public SignUpWindowControllerTest() {
-    }
     /**
      * Abre la vista ViewSingIn
      * @param stage
@@ -34,6 +36,7 @@ public class SignUpWindowControllerTest extends ApplicationTest{
         new Main().start(stage);
         clickOn("#hlCrear");
     }
+      
     
     /**
      * abre la ventana ViewSingUp y 

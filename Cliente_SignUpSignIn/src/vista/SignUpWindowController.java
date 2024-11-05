@@ -6,11 +6,11 @@
 package vista;
 
 import clases.Message;
-import clases.Request;
 import clases.User;
 import controller.SignableFactory;
 import excepciones.InternalServerErrorException;
 import excepciones.NoConnectionsAvailableException;
+import excepciones.ServerClosedException;
 import excepciones.UserExitsException;
 import java.io.IOException;
 import java.net.URL;
@@ -223,15 +223,11 @@ public class SignUpWindowController implements Initializable {
             user.setEmail(tfCorreo.getText());
             user.setPassword(pfPass.getText());
             user.setActive(cbActive.isSelected());
-            //Se añade el User al Message.
-            mensaje.setUser(user);
-            //Se añade Request al Message
-            mensaje.setRequest(Request.SING_UP_REQUEST);
 
             try {
                 // Se manda el Message creado al servidor, en caso de que no 
                 // salte ninguna excepción significa que todo ha ido correctamente.
-                SignableFactory.getSignable().signUp(mensaje);
+                SignableFactory.getSignable().signUp(user);
 
                 // Se carga el FXML con la información de la vista viewSignOut.
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignOut.fxml"));
@@ -260,7 +256,7 @@ public class SignUpWindowController implements Initializable {
                 // "Error en la sincronización de ventanas, intentalo más tarde".
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
-            } catch (InternalServerErrorException | UserExitsException | NoConnectionsAvailableException ex) {
+            } catch (InternalServerErrorException | UserExitsException | NoConnectionsAvailableException | ServerClosedException ex) {
                 // Si salta alguna de las excepciones creadas por nosotros se 
                 // muestra un Alert con el mensaje correspondiente de 
                 // cada una de ellas.

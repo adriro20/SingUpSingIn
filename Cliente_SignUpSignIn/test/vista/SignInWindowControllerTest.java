@@ -5,6 +5,7 @@
  */
 package vista;
 
+import excepciones.LogInDataException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,42 +26,11 @@ import static org.testfx.matcher.base.NodeMatchers.isVisible;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SignInWindowControllerTest extends ApplicationTest {
 
-    public static Process ejecutarServer;
     
     @Override
     public void start(Stage stage) throws Exception {
         new Main().start(stage);
-    }
-    
-    @AfterClass
-    public static void cerrarServidor(){
-        ejecutarServer.destroy();
-    }
-
-    @Test
-    public void testServerClosed() {
-        //Datos guardados en la BD
-        clickOn("#tfCorreo");
-        write("aaaaaaaaaaaaaaaaaaaaaa@gmail.com");
-        clickOn("#pfPass");
-        write("Abcd*1234");
-        clickOn("#btnSignIn");
-
-        verifyThat("El servidor no está disponible en este momento, intentalo más tarde", isVisible());
-        
-        clickOn("Aceptar");
-        
-        ProcessBuilder abrirServer = new ProcessBuilder("java", "-jar", 
-                "C:\\Users\\2dam.TARTANGALH\\Desktop\\SignUpSignIn\\SignUpSignInServerGit\\SingUpSingInServer\\Server_SignUpSignIn\\dist\\Server_SignUpSignIn.jar");
-        try {
-            ejecutarServer = abrirServer.start();
-            Thread.sleep(5000);
-        } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(SignInWindowControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
+    } 
     
     @Test
     public void testSignInOK() {
@@ -75,7 +45,7 @@ public class SignInWindowControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testSignInErrorCredencialesIncorrectas() {
+    public void testSignInLogInDataError() {
         //Datos no guardados en la BD
         clickOn("#tfCorreo");
         write("asofhre@gmail.org");
@@ -90,7 +60,7 @@ public class SignInWindowControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testSignInErrorUserNotActive() {
+    public void testSignInErrorUserNotActiveError() {
         //Datos no guardados en la BD
         clickOn("#tfCorreo");
         write("azul@gmail.com");

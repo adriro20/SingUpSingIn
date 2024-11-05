@@ -191,16 +191,10 @@ public class SignInWindowController implements Initializable {
             user.setEmail(tfCorreo.getText());
             user.setPassword(pfPass.getText());
 
-            //Se añade el User creado al Message.
-            mensaje.setUser(user);
-
-            //Se le añade al Message el Request SING_IN_REQUEST.
-            mensaje.setRequest(Request.SING_IN_REQUEST);
-
             try {
                 // Se manda el Message creado al servidor, en caso de que no 
                 // salte ninguna excepción significa que todo ha ido correctamente.
-                SignableFactory.getSignable().signIn(mensaje);
+                SignableFactory.getSignable().signIn(user);
 
                 // Se carga el FXML con la información de la vista viewSignOut.
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignOut.fxml"));
