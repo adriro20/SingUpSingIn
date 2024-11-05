@@ -225,7 +225,7 @@ public class SignUpWindowController implements Initializable {
             user.setActive(cbActive.isSelected());
 
             try {
-                // Se manda el Message creado al servidor, en caso de que no 
+                // Se manda el User con los datos introducidos al servidor, en caso de que no 
                 // salte ninguna excepción significa que todo ha ido correctamente.
                 SignableFactory.getSignable().signUp(user);
 
@@ -520,10 +520,10 @@ public class SignUpWindowController implements Initializable {
         pfPass2.setTooltip(tooltip4);
         
         
-        pfPass.setOnKeyTyped(this::escribirPassEnTf);
-        tfPass.setOnKeyTyped(this::escribirPassenPf);
-        pfPass2.setOnKeyTyped(this::escribirPassEnTf);
-        tfPass2.setOnKeyTyped(this::escribirPassenPf);
+        pfPass.setOnKeyReleased(this::escribirPassEnTf);
+        tfPass.setOnKeyReleased(this::escribirPassenPf);
+        pfPass2.setOnKeyReleased(this::escribirPassEnTf);
+        tfPass2.setOnKeyReleased(this::escribirPassenPf);
         //Se crea el menú contextual, el cual se mostrará si se hace clic con el 
         //botón izquierdo del ratón.
         ContextMenu contextMenu = new ContextMenu();

@@ -192,7 +192,7 @@ public class SignInWindowController implements Initializable {
             user.setPassword(pfPass.getText());
 
             try {
-                // Se manda el Message creado al servidor, en caso de que no 
+                // Se manda el User con los datos introducidos al servidor, en caso de que no 
                 // salte ninguna excepción significa que todo ha ido correctamente.
                 SignableFactory.getSignable().signIn(user);
 
@@ -395,8 +395,9 @@ public class SignInWindowController implements Initializable {
         hlSignUp.setOnAction(this::signUp);
         hlCrear.setOnAction(this::signUp);
 
-        pfPass.setOnKeyTyped(this::escribirPassEnTf);
-        tfPass.setOnKeyTyped(this::escribirPassenPf);
+        //Cada vez que se escribe en el PasswordField se copia el texto en el TextField y viceversa
+        pfPass.setOnKeyReleased(this::escribirPassEnTf);
+        tfPass.setOnKeyReleased(this::escribirPassenPf);
 
         //Se crea el menú contextual, el cual se mostrará si se hace clic con el 
         //botón izquierdo del ratón.
