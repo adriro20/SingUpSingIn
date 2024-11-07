@@ -16,21 +16,6 @@ Librería 🡪 https://github.com/adriro20/SingUpSingInLib </br>
   <li>IP	→	IP del servidor.</li>
 </ul>
 
-<h3>Ficheros del servidor:</h3>
-
-<h5>connections.properties</h5>
-<ul>
-  <li>TCON	→	Número máximo de conexiones simultáneas permitidas.</li>
-  <li>URL	→	Url de conexión a la base de datos.</li>
-  <li>USER	→	Usuario de la base de datos.</li>
-  <li>PWD	→	Contraseña de la base de datos.</li>
-</ul>
-
-<h5>infoServer.properties</h5>
-<ul>
-  <li>PORT	→	Puerto de escucha del servidor.</li>
-</ul>
-
 <h1>Explicación de la función de los ficheros de test</h1>
 
 <h3>SignInWindowControllerTest</h3>
@@ -53,5 +38,5 @@ Test específico para comprobar la excepción “InternalServerErrorException”
   <li>Una vez con el servidor en funcionamiento se podrá iniciar con normalidad el cliente.</li>
 </ol>
 
-<h3>Cosas a tener en cuenta</h3>
+<h3>Aspectos a tener en cuenta</h3>
 Al iniciar con una base de datos nueva no se podrá iniciar sesión sin registrar antes a algún usuario, esto aplica en los tests que hay que ejecutar iniciando de una base de datos desde cero el test de Sign Up antes que el test de Sign In.
