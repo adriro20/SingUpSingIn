@@ -2,7 +2,6 @@
 
 <h1>Repositorios de GitHub</h1>
 
-Cliente 🡪 https://github.com/adriro20/SingUpSingInClient </br>
 Servidor 🡪 https://github.com/adriro20/SingUpSingInServer </br>
 Librería 🡪 https://github.com/adriro20/SingUpSingInLib </br>
 
