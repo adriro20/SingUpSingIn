@@ -45,9 +45,9 @@ public class SignInWindowControllerTest extends ApplicationTest {
     public void testSignInLogInDataError() {
         //Datos no guardados en la BD
         clickOn("#tfCorreo");
-        write("elena.mart@email.com");
+        write("noexiste@email.com");
         clickOn("#pfPass");
-        write("Abcd*1234");
+        write("NoExiste123");
         clickOn("#btnVerPass");
         clickOn("#btnSignIn");
 

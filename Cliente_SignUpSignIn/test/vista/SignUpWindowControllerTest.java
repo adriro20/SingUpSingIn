@@ -79,7 +79,8 @@ public class SignUpWindowControllerTest extends ApplicationTest {
         clickOn("#pfPass2");
         write("Elena2024!");
         clickOn("#btnSignUp");
-        verifyThat("#btnCerrarSesion", isVisible());
+        verifyThat("El correo con el que intentas registrarte ya existe.", isVisible());
+        clickOn("Aceptar");
     }
     
     /**
@@ -101,6 +102,7 @@ public class SignUpWindowControllerTest extends ApplicationTest {
         write("SolVerde8");
         clickOn("#pfPass2");
         write("SolVerde8");
+        clickOn("#cbActive");
         clickOn("#btnSignUp");
         verifyThat("#btnCerrarSesion", isVisible());
     }
