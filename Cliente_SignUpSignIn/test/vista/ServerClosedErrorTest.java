@@ -28,7 +28,7 @@ public class ServerClosedErrorTest extends ApplicationTest{
     }
 
     @Test
-    public void A_testSignInServerClosedError() {
+    public void testSignInServerClosedError() {
 
         clickOn("#tfCorreo");
         write("mnbv@gmail.com");
@@ -42,7 +42,7 @@ public class ServerClosedErrorTest extends ApplicationTest{
     }
 
     @Test
-    public void B_testSignUpServerClosedError() {
+    public void testSignUpServerClosedError() {
         clickOn("#hlCrear");
 
         clickOn("#tfNombre");

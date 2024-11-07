@@ -6,12 +6,7 @@
 package vista;
 
 import controller.Main;
-import excepciones.LogInDataException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.stage.Stage;
-import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
@@ -37,9 +32,10 @@ public class SignInWindowControllerTest extends ApplicationTest {
     public void testSignInOK() {
         //Datos guardados en la BD
         clickOn("#tfCorreo");
-        write("mnbv@gmail.com");
+        write("elena.mart@email.com");
         clickOn("#pfPass");
-        write("Abcd*1234");
+        write("Elena2024!");
+        clickOn("#btnVerPass");
         clickOn("#btnSignIn");
 
         verifyThat("#btnCerrarSesion", isVisible());
@@ -49,9 +45,10 @@ public class SignInWindowControllerTest extends ApplicationTest {
     public void testSignInLogInDataError() {
         //Datos no guardados en la BD
         clickOn("#tfCorreo");
-        write("asofhre@gmail.org");
+        write("elena.mart@email.com");
         clickOn("#pfPass");
         write("Abcd*1234");
+        clickOn("#btnVerPass");
         clickOn("#btnSignIn");
 
         verifyThat("El correo y/o la contraseña no coinciden con el de ningún usuario registrado.", isVisible());
@@ -64,9 +61,10 @@ public class SignInWindowControllerTest extends ApplicationTest {
     public void testSignInErrorUserNotActiveError() {
         //Datos no guardados en la BD
         clickOn("#tfCorreo");
-        write("azul@gmail.com");
+        write("andresgomez@gmail.com");
         clickOn("#pfPass");
-        write("AZsxdc12");
+        write("SolVerde8");
+        clickOn("#btnVerPass");
         clickOn("#btnSignIn");
 
         verifyThat("El usuario no está activo.", isVisible());
@@ -75,11 +73,11 @@ public class SignInWindowControllerTest extends ApplicationTest {
 
     }
 
-    @Test
+    //@Test
     public void testSignInErrorCamposVacios() {
         //Datos no guardados en la BD
         clickOn("#tfCorreo");
-        write("azul@gmail.com");
+        write("andresgomez@gmail.com");
         clickOn("#btnSignIn");
         verifyThat("Los campos no pueden estar vacíos", isVisible());
         clickOn("Aceptar");

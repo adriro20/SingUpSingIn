@@ -34,7 +34,7 @@ public class Main extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws Exception {
         //Se carga el FXML viewSignIn.
-        Parent root = FXMLLoader.load(getClass().getResource("viewSignIn.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/vista/viewSignIn.fxml"));
 
         //Se crea un objeto de la clase Scene y se le añade el FXML cargado
         Scene scene = new Scene(root);

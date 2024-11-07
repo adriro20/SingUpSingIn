@@ -182,8 +182,8 @@ public class Client implements Signable {
             //Se añade el User creado al Message.
             mensaje.setUser(user);
 
-            //Se le añade al Message el Request SING_IN_REQUEST.
-            mensaje.setRequest(Request.SING_IN_REQUEST);
+            //Se le añade al Message el Request SING_UP_REQUEST.
+            mensaje.setRequest(Request.SING_UP_REQUEST);
             
             //Envia el mensaje al servidor.
             salida.writeObject(mensaje);

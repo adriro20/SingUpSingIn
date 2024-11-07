@@ -6,8 +6,6 @@
 package vista;
 
 import controller.Main;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.stage.Stage;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -29,7 +27,7 @@ public class InternalServerErrorTest extends ApplicationTest {
     }
 
     @Test
-    public void B_testSignInInternalServerError() {
+    public void testSignInInternalServerError() {
 
         clickOn("#tfCorreo");
         write("mnbv@gmail.com");
@@ -42,8 +40,8 @@ public class InternalServerErrorTest extends ApplicationTest {
 
     }
 
-    //@Test
-    public void A_testSignUpInternalServerError() {
+    @Test
+    public void testSignUpInternalServerError() {
         clickOn("#hlCrear");
 
         clickOn("#tfNombre");

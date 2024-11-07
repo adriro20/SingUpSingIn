@@ -6,7 +6,6 @@
 package vista;
 
 import clases.Message;
-import clases.Request;
 import controller.SignableFactory;
 import clases.User;
 import excepciones.InternalServerErrorException;
@@ -35,6 +34,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -385,6 +385,9 @@ public class SignInWindowController implements Initializable {
             stagePrincipal.setResizable(false);
             stagePrincipal.setTitle("Inicio de sesión");
             stagePrincipal.setOnCloseRequest(this::closeAppFromX);
+            
+            Image icon = new Image(getClass().getResourceAsStream("/img/logoG1Edit.png"));
+            stagePrincipal.getIcons().add(icon);
 
         });
 
