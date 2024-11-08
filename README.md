@@ -7,7 +7,7 @@ Librería 🡪 https://github.com/adriro20/SingUpSingInLib </br>
 
 <h1>Parámetros de los ficheros “.properties”</h1>
 
-<h3>Ficheros del cliente:</h3>
+<h3>Ficheros del cliente (están dentro del paquete "model"):</h3>
 
 <h5>infoClient.properties</h5>
 <ul>
