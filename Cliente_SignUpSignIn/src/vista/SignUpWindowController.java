@@ -6,8 +6,10 @@
 package vista;
 
 import clases.Message;
+import clases.Signable;
 import clases.User;
 import controller.SignableFactory;
+import controller.SignableSingleton;
 import excepciones.InternalServerErrorException;
 import excepciones.NoConnectionsAvailableException;
 import excepciones.ServerClosedException;
@@ -56,7 +58,8 @@ import javafx.stage.WindowEvent;
  * @author Erlantz Rey.
  */
 public class SignUpWindowController implements Initializable {
-
+    Signable singable = SignableSingleton.getSignable();
+    
     /**
      * Panel principal que contiene los elementos de la interfaz.
      */
@@ -227,7 +230,7 @@ public class SignUpWindowController implements Initializable {
             try {
                 // Se manda el User con los datos introducidos al servidor, en caso de que no 
                 // salte ninguna excepción significa que todo ha ido correctamente.
-                SignableFactory.getSignable().signUp(user);
+                singable.signUp(user);
 
                 // Se carga el FXML con la información de la vista viewSignOut.
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignOut.fxml"));

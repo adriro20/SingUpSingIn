@@ -6,8 +6,9 @@
 package vista;
 
 import clases.Message;
-import controller.SignableFactory;
+import clases.Signable;
 import clases.User;
+import controller.SignableSingleton;
 import excepciones.InternalServerErrorException;
 import excepciones.LogInDataException;
 import excepciones.NoConnectionsAvailableException;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
@@ -40,6 +43,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -56,7 +60,7 @@ import javafx.stage.WindowEvent;
  * @author Julen Hidalgo, Adrián Rocha.
  */
 public class SignInWindowController implements Initializable {
-
+    Signable singable = SignableSingleton.getSignable();
     /**
      * Botón para salir de la aplicación.
      */
@@ -118,6 +122,12 @@ public class SignInWindowController implements Initializable {
      */
     @FXML
     StackPane stackPane;
+    
+    @FXML
+    Label lblEmail;
+    
+    @FXML
+    Label lblPass;
 
     /**
      * Variable para saber si el tema esta en oscuro o claro
@@ -135,10 +145,11 @@ public class SignInWindowController implements Initializable {
     private void closeAppFromButton(ActionEvent event) {
         //Se muestra un Alert con dos opciones para confirmar que el usuario 
         //quiere cerrar la app.
-        Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
-
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("¿Estas seguro?");
+        Optional<ButtonType> confirmar = alert.showAndWait();
         //Si la confirmación del Alert es verdadera, se cierra el programa.
-        if (confirmar.get() == ButtonType.YES) {
+        if (confirmar.get() == ButtonType.OK) {
             Platform.exit();
         }
     }
@@ -154,13 +165,12 @@ public class SignInWindowController implements Initializable {
     private void closeAppFromX(WindowEvent event) {
         //Se muestra un Alert con dos opciones para confirmar que el usuario 
         //quiere cerrar la app.
-        Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
-
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("¿Estas seguro?");
+        Optional<ButtonType> confirmar = alert.showAndWait();
         //Si la confirmación del Alert es verdadera, se cierra el programa.
-        if (confirmar.get() == ButtonType.YES) {
+        if (confirmar.get() == ButtonType.OK) {
             Platform.exit();
-        }else{
-            event.consume();
         }
     }
 
@@ -177,13 +187,13 @@ public class SignInWindowController implements Initializable {
     private void signIn(ActionEvent event) {
         //Se crea un objeto de la clase Message.
         Message mensaje = new Message();
+        boolean alert = true;
+        boolean correo = comprobarCorreo(alert);
+        boolean pass = comprobarPWDpf(alert);
 
         //Se comprueba que los campos no estén vacios.
-        if (tfCorreo.getText().equals("") || pfPass.getText().equals("")) {
-            //En el caso de que algún campo esté vacío se manda un Alert con el 
-            //texto "Los campos no pueden estar vacíos".
-            new Alert(Alert.AlertType.ERROR, "Los campos no pueden estar vacíos", ButtonType.OK).showAndWait();
-        } else {
+        
+        if (correo && pass) {
             //En el caso de que no haya ningún campo vacío se crea un nuevo 
             //objeto de la clase User y se le añaden los atributos Email y 
             //Password con los valores introducidos en los campos.
@@ -194,7 +204,7 @@ public class SignInWindowController implements Initializable {
             try {
                 // Se manda el User con los datos introducidos al servidor, en caso de que no 
                 // salte ninguna excepción significa que todo ha ido correctamente.
-                SignableFactory.getSignable().signIn(user);
+                singable.signIn(user);
 
                 // Se carga el FXML con la información de la vista viewSignOut.
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viewSignOut.fxml"));
@@ -222,13 +232,18 @@ public class SignInWindowController implements Initializable {
                 // ventana, por lo que se mostrará un Alert con el mensaje 
                 // "Error en la sincronización de ventanas, intentalo más tarde".
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
-                new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde", ButtonType.OK).showAndWait();
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setHeaderText("Error interno.");
+                alerta.showAndWait();
+                
             } catch (InternalServerErrorException | LogInDataException | NoConnectionsAvailableException | UserNotActiveException | ServerClosedException ex) {
                 // Si salta alguna de las excepciones creadas por nosotros se 
                 // muestra un Alert con el mensaje correspondiente de 
                 // cada una de ellas.
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
-                new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setHeaderText(ex.getMessage());
+                alerta.showAndWait();
             }
         }
     }
@@ -266,7 +281,9 @@ public class SignInWindowController implements Initializable {
             // ventana, por lo que se mostrará un Alert con el mensaje 
             // "Error en la sincronización de ventanas, intentalo más tarde".
             Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setHeaderText("Error interno.");
+            alerta.showAndWait();
         }
     }
 
@@ -390,13 +407,27 @@ public class SignInWindowController implements Initializable {
             stagePrincipal.getIcons().add(icon);
 
         });
-
+        
+        
+        
         //Se añaden los listeners a todos los botones.
         btnSalir.setOnAction(this::closeAppFromButton);
         btnVerPass.setOnAction(this::verPass);
         btnSignIn.setOnAction(this::signIn);
         hlSignUp.setOnAction(this::signUp);
         hlCrear.setOnAction(this::signUp);
+        
+        tfCorreo.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            comprobarFocusCorreo(newValue);
+        });
+        
+        pfPass.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            comprobarFocusPwdpf(newValue);
+        });
+        
+        tfPass.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            comprobarFocusPwdtf(newValue);
+        });
 
         //Cada vez que se escribe en el PasswordField se copia el texto en el TextField y viceversa
         pfPass.setOnKeyReleased(this::escribirPassEnTf);
@@ -412,6 +443,94 @@ public class SignInWindowController implements Initializable {
         contextMenu.getItems().addAll(item1, item2);
         bpPrincipal.setOnMouseClicked(event -> controlMenuConceptual(event, contextMenu));
 
+    }
+
+    private void comprobarFocusCorreo(Boolean newValue) {
+        boolean alert = false;
+        if (!newValue) {
+            comprobarCorreo(alert);
+        }
+    }
+
+    private boolean comprobarCorreo(boolean alert) {
+        boolean bien = true;
+        if (tfCorreo.getText().equals("")) {
+            lblEmail.setTextFill(Color.RED);
+            bien = false;
+            if (alert) {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setHeaderText("El correo no puede estar vacio.");
+                alerta.showAndWait();
+            }
+        } else {
+            if (!tfCorreo.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$")) {
+                lblEmail.setTextFill(Color.RED);
+                bien = false;
+                if (alert) {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setHeaderText("El correo no tiene el formato correcto.");
+                    alerta.showAndWait();
+                }
+            } else {
+                lblEmail.setTextFill(Color.BLACK);
+            }
+        }
+        return bien;
+    }
+
+    private void comprobarFocusPwdpf(Boolean newValue) {
+        boolean alert = false;
+        if (!newValue) {
+            comprobarPWDpf(alert);
+        }
+    }
+
+    private boolean comprobarPWDpf(boolean alert) {
+        boolean bien = true;
+        if (pfPass.getText().equals("")) {
+            lblPass.setTextFill(Color.RED);
+            bien = false;
+            if (alert) {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setHeaderText("La contraseña no puede estar vacia.");
+                alerta.showAndWait();
+            }
+        } else {
+            if (!pfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
+                lblPass.setTextFill(Color.RED);
+                bien = false;
+                if (alert) {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setHeaderText("La contraseña tiene un formato incorrecto.");
+                    alerta.showAndWait();
+                }
+            } else {
+                lblPass.setTextFill(Color.BLACK);
+            }
+        }
+        return bien;
+    }
+
+    private void comprobarFocusPwdtf(Boolean newValue) {
+        if (!newValue) {
+            comprobarPWDtf();
+        }
+    }
+
+    private boolean comprobarPWDtf() {
+        boolean bien = true;
+        if (tfPass.getText().equals("")) {
+            lblPass.setTextFill(Color.RED);
+            bien = false;
+        } else {
+            if (!tfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
+                lblPass.setTextFill(Color.RED);
+                bien = false;
+            } else {
+                lblPass.setTextFill(Color.BLACK);
+            }
+        }
+        return bien;
     }
 
 }
