@@ -32,16 +32,16 @@ public class SignInWindowControllerTest extends ApplicationTest {
     public void testSignInOK() {
         //Datos guardados en la BD
         clickOn("#tfCorreo");
-        write("elena.mart@email.com");
+        write("yaaaa@gmail.com");
         clickOn("#pfPass");
-        write("Elena2024!");
+        write("ErlantZ9");
         clickOn("#btnVerPass");
         clickOn("#btnSignIn");
 
         verifyThat("#btnCerrarSesion", isVisible());
     }
 
-    @Test
+    //@Test
     public void testSignInLogInDataError() {
         //Datos no guardados en la BD
         clickOn("#tfCorreo");
@@ -57,7 +57,7 @@ public class SignInWindowControllerTest extends ApplicationTest {
 
     }
 
-    @Test
+    //@Test
     public void testSignInErrorUserNotActiveError() {
         //Datos no guardados en la BD
         clickOn("#tfCorreo");

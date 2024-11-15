@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -135,10 +137,8 @@ public class SignInWindowController implements Initializable {
     private void closeAppFromButton(ActionEvent event) {
         //Se muestra un Alert con dos opciones para confirmar que el usuario 
         //quiere cerrar la app.
-        Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
-
         //Si la confirmación del Alert es verdadera, se cierra el programa.
-        if (confirmar.get() == ButtonType.YES) {
+        if (lanzarAlertConfirmacionCustom("¿Está seguro de que desea salir?")) {
             Platform.exit();
         }
     }
@@ -154,12 +154,10 @@ public class SignInWindowController implements Initializable {
     private void closeAppFromX(WindowEvent event) {
         //Se muestra un Alert con dos opciones para confirmar que el usuario 
         //quiere cerrar la app.
-        Optional<ButtonType> confirmar = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de que desea salir?", ButtonType.YES, ButtonType.NO).showAndWait();
-
         //Si la confirmación del Alert es verdadera, se cierra el programa.
-        if (confirmar.get() == ButtonType.YES) {
+        if (lanzarAlertConfirmacionCustom("¿Está seguro de que desea salir?")) {
             Platform.exit();
-        }else{
+        } else {
             event.consume();
         }
     }
@@ -182,7 +180,17 @@ public class SignInWindowController implements Initializable {
         if (tfCorreo.getText().equals("") || pfPass.getText().equals("")) {
             //En el caso de que algún campo esté vacío se manda un Alert con el 
             //texto "Los campos no pueden estar vacíos".
-            new Alert(Alert.AlertType.ERROR, "Los campos no pueden estar vacíos", ButtonType.OK).showAndWait();
+            lanzarAlertErrorCustom("Los campos no pueden estar vacíos");
+            if (tfCorreo.getText().equals("") && pfPass.getText().equals("")) {
+                tfCorreo.setStyle("-fx-background-color: red;");
+                pfPass.setStyle("-fx-background-color: red;");
+                tfPass.setStyle("-fx-background-color: red;");
+            } else if (tfCorreo.getText().equals("")) {
+                tfCorreo.setStyle("-fx-background-color: red;");
+            } else {
+                pfPass.setStyle("-fx-background-color: red;");
+                tfPass.setStyle("-fx-background-color: red;");
+            }
         } else {
             //En el caso de que no haya ningún campo vacío se crea un nuevo 
             //objeto de la clase User y se le añaden los atributos Email y 
@@ -222,13 +230,23 @@ public class SignInWindowController implements Initializable {
                 // ventana, por lo que se mostrará un Alert con el mensaje 
                 // "Error en la sincronización de ventanas, intentalo más tarde".
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
-                new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde", ButtonType.OK).showAndWait();
-            } catch (InternalServerErrorException | LogInDataException | NoConnectionsAvailableException | UserNotActiveException | ServerClosedException ex) {
+                lanzarAlertErrorCustom(ex.getMessage());
+            } catch (UserNotActiveException ex) {
+                Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                lanzarAlertErrorCustom(ex.getMessage());
+                tfCorreo.setStyle("-fx-background-color: red;");
+            } catch (LogInDataException ex) {
+                Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                lanzarAlertErrorCustom(ex.getMessage());
+                tfCorreo.setStyle("-fx-background-color: red;");
+                pfPass.setStyle("-fx-background-color: red;");
+                tfPass.setStyle("-fx-background-color: red;");
+            } catch (InternalServerErrorException | NoConnectionsAvailableException | ServerClosedException ex) {
                 // Si salta alguna de las excepciones creadas por nosotros se 
                 // muestra un Alert con el mensaje correspondiente de 
                 // cada una de ellas.
                 Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
-                new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();
+                lanzarAlertErrorCustom(ex.getMessage());
             }
         }
     }
@@ -266,7 +284,7 @@ public class SignInWindowController implements Initializable {
             // ventana, por lo que se mostrará un Alert con el mensaje 
             // "Error en la sincronización de ventanas, intentalo más tarde".
             Logger.getLogger(SignInWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            new Alert(Alert.AlertType.ERROR, "Error en la sincronización de ventanas, intentalo más tarde.", ButtonType.OK).showAndWait();
+            lanzarAlertErrorCustom(ex.getMessage());
         }
     }
 
@@ -369,6 +387,20 @@ public class SignInWindowController implements Initializable {
         pfPass.setText(tfPass.getText());
     }
 
+    private void lanzarAlertErrorCustom(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(mensaje);
+        alert.showAndWait();
+    }
+
+    private boolean lanzarAlertConfirmacionCustom(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(mensaje);
+        Optional<ButtonType> confirmar = alert.showAndWait();
+        return confirmar.get() == ButtonType.OK;
+
+    }
+
     /**
      * Es el metodo que inicializa la ventana de inicio de sesión, además es la
      * que le da las propiedades de recoger eventos a todos los botones.
@@ -385,7 +417,7 @@ public class SignInWindowController implements Initializable {
             stagePrincipal.setResizable(false);
             stagePrincipal.setTitle("Inicio de sesión");
             stagePrincipal.setOnCloseRequest(this::closeAppFromX);
-            
+
             Image icon = new Image(getClass().getResourceAsStream("/img/logoG1Edit.png"));
             stagePrincipal.getIcons().add(icon);
 
@@ -401,6 +433,35 @@ public class SignInWindowController implements Initializable {
         //Cada vez que se escribe en el PasswordField se copia el texto en el TextField y viceversa
         pfPass.setOnKeyReleased(this::escribirPassEnTf);
         tfPass.setOnKeyReleased(this::escribirPassenPf);
+
+        tfCorreo.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (tfCorreo.getText().equals("") && !newValue) {
+                    tfCorreo.setStyle("-fx-background-color: red;");
+                }
+            }
+        });
+
+        pfPass.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (pfPass.getText().equals("") && !newValue) {
+                    pfPass.setStyle("-fx-background-color: red;");
+                    tfPass.setStyle("-fx-background-color: red;");
+                }
+            }
+        });
+
+        tfPass.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (tfPass.getText().equals("") && !newValue) {
+                    tfPass.setStyle("-fx-background-color: red;");
+                    pfPass.setStyle("-fx-background-color: red;");
+                }
+            }
+        });
 
         //Se crea el menú contextual, el cual se mostrará si se hace clic con el 
         //botón izquierdo del ratón.

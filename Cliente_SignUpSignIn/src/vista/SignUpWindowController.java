@@ -9,6 +9,7 @@ import clases.Message;
 import clases.User;
 import controller.SignableFactory;
 import excepciones.InternalServerErrorException;
+import excepciones.NoConexionesDisponiblesException;
 import excepciones.NoConnectionsAvailableException;
 import excepciones.ServerClosedException;
 import excepciones.UserExitsException;
@@ -223,6 +224,7 @@ public class SignUpWindowController implements Initializable {
             user.setEmail(tfCorreo.getText());
             user.setPassword(pfPass.getText());
             user.setActive(cbActive.isSelected());
+            user.setMobile("688855347");
 
             try {
                 // Se manda el User con los datos introducidos al servidor, en caso de que no 

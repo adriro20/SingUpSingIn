@@ -47,11 +47,18 @@
                             <children>
                                 <VBox>
                                     <children>
-                                        <Label text="Email">
-                                            <VBox.margin>
-                                                <Insets left="90.0" />
-                                            </VBox.margin>
-                                        </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Email">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <HBox.margin>
+                                          <Insets left="90.0" />
+                                       </HBox.margin></Label>
+                                    <Label style="-fx-text-fill: red;" text="*" />
+                                 </children>
+                              </HBox>
                                         <HBox alignment="CENTER">
                                             <children>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -66,11 +73,16 @@
                                 </VBox>
                                 <VBox>
                                     <children>
-                                        <Label text="Contraseña">
-                                            <VBox.margin>
-                                                <Insets left="90.0" />
-                                            </VBox.margin>
-                                        </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                              <Label text="Contraseña">
+                                       <HBox.margin>
+                                          <Insets left="90.0" />
+                                       </HBox.margin>
+                                              </Label>
+                                    <Label style="-fx-text-fill: red;" text="*" />
+                                 </children>
+                              </HBox>
                                         <HBox alignment="CENTER">
                                             <children>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
