@@ -12,6 +12,7 @@ import excepciones.InternalServerErrorException;
 import excepciones.NoConnectionsAvailableException;
 import excepciones.ServerClosedException;
 import excepciones.UserExitsException;
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -19,6 +20,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +36,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
@@ -40,8 +44,13 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import static javafx.scene.paint.Color.rgb;
+import static javafx.scene.paint.Color.rgb;
+import static javafx.scene.paint.Color.rgb;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import static javax.management.Query.value;
 
 /**
  * Controlador de la ventana de registro (viewSignUp).
@@ -81,42 +90,61 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     TextField tfNombre;
+    
+    @FXML
+    Label lblNombre;
 
     /**
      * Campo de texto para ingresar el correo electrónico del usuario.
      */
     @FXML
     TextField tfCorreo;
-
+    
+    @FXML
+    Label lblCorreo;
     /**
      * Campo de texto para ingresar la ciudad del usuario.
      */
     @FXML
     TextField tfCiudad;
-
+    
+    @FXML
+    Label lblCiudad;
     /**
      * Campo de texto para ingresar la calle del usuario.
      */
     @FXML
     TextField tfCalle;
-
+    
+    @FXML
+    Label lblCalle;
+    
     /**
      * Campo de texto para ingresar el número de teléfono del usuario.
      */
     @FXML
     TextField tfZip;
-
+    
+    @FXML
+    Label lblZip;
+    
     /**
      * Campo de contraseña para ingresar la contraseña del usuario.
      */
     @FXML
     PasswordField pfPass;
+    
+    @FXML
+    Label lblPasswd;
 
     /**
      * Campo de contraseña para repetir la contraseña del usuario.
      */
     @FXML
     PasswordField pfPass2;
+    
+    @FXML
+    Label lblPasswd2;
 
     /**
      * Campo de texto para mostrar la contraseña en texto plano (alternativa a
@@ -171,6 +199,21 @@ public class SignUpWindowController implements Initializable {
     
     /**Variable para saber si el tema esta en oscuro o claro*/
     private boolean oscuro;
+    
+   
+      
+    private void validarNombre(){
+       
+        if (tfNombre.getText().equals("")) {
+            //Si hay alguno vacío se muestra un mensaje.
+            
+
+           
+        }
+    }
+
+    
+    
     /**
      * Maneja el proceso de registro.
      *
@@ -186,33 +229,95 @@ public class SignUpWindowController implements Initializable {
         //Se crea un nuevo User y Messsage
         User user = new User();
         Message mensaje = new Message();
-
+        
         //Se comprueban los campos para ver si hay alguno vacío.
-        if (tfNombre.getText().equals("") || tfZip.getText().equals("") || tfCorreo.getText().equals("")
-                || tfCiudad.getText().equals("") || pfPass.getText().equals("") || pfPass2.getText().equals("") || tfCalle.getText().equals("")) {
+        if (tfNombre.getText().equals("")) {
             //Si hay alguno vacío se muestra un mensaje.
-            new Alert(Alert.AlertType.ERROR, "Te Falta algun campo por rellenar", ButtonType.OK).showAndWait();
 
-            //Se comprueba si la contraseña cumple los requisitos.
+            lblNombre.setText(ponerAsterisco(lblNombre.getText()));
+            Optional<ButtonType> confirmar = new Alert(Alert.AlertType.ERROR, "Te Falta por rellenar el nombre", ButtonType.OK).showAndWait();
+            if (confirmar.get() == ButtonType.OK) {
+                lblNombre.setStyle("-fx-text-fill:red");
+            }
+
+        } else if (tfCorreo.getText().equals("")) {
+
+            lblCorreo.setText(ponerAsterisco(lblCorreo.getText()));
+            Optional<ButtonType> confirmar2 = new Alert(Alert.AlertType.ERROR, "Te Falta por rellenar el el correo", ButtonType.OK).showAndWait();
+            if (confirmar2.get() == ButtonType.OK) {
+                lblCorreo.setStyle("-fx-text-fill:red");
+            }
+
+        } else if (tfCiudad.getText().equals("")) {
+
+            lblCiudad.setText(ponerAsterisco(lblCiudad.getText()));
+            Optional<ButtonType> confirmar3 = new Alert(Alert.AlertType.ERROR, "Te Falta por rellenar la ciudad", ButtonType.OK).showAndWait();
+            if (confirmar3.get() == ButtonType.OK) {
+                lblCiudad.setStyle("-fx-text-fill:red");
+            }
+
+        } else if (tfCalle.getText().equals("")) {
+
+            lblCalle.setText(ponerAsterisco(lblCalle.getText()));
+            Optional<ButtonType> confirmar4 = new Alert(Alert.AlertType.ERROR, "Te Falta por rellenar la calle", ButtonType.OK).showAndWait();
+            if (confirmar4.get() == ButtonType.OK) {
+                lblCalle.setStyle("-fx-text-fill:red");
+            }
+
+        } else if (tfZip.getText().equals("")) {
+
+            lblZip.setText(ponerAsterisco(lblZip.getText()));
+            Optional<ButtonType> confirmar5 = new Alert(Alert.AlertType.ERROR, "Te Falta por rellenar el codigo postal", ButtonType.OK).showAndWait();
+            if (confirmar5.get() == ButtonType.OK) {
+                lblZip.setStyle("-fx-text-fill:red");
+            }
+        } else if (pfPass.getText().equals("")) {
+
+            lblPasswd.setText(ponerAsterisco(lblPasswd.getText()));
+            Optional<ButtonType> confirmar6 = new Alert(Alert.AlertType.ERROR, "Te Falta por rellenar la contraseña", ButtonType.OK).showAndWait();
+            if (confirmar6.get() == ButtonType.OK) {
+                lblPasswd.setStyle("-fx-text-fill:red");
+            }
+        } else if (pfPass2.getText().equals("")) {
+
+            lblPasswd2.setText(ponerAsterisco(lblPasswd2.getText()));
+            Optional<ButtonType> confirmar7 = new Alert(Alert.AlertType.ERROR, "Te Falta por rellenar la segunda contraseña", ButtonType.OK).showAndWait();
+            if (confirmar7.get() == ButtonType.OK) {
+                lblPasswd2.setStyle("-fx-text-fill:red");
+            }
+
         } else if (!pfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
             //Si no es válida se muestra un mensaje.
-            new Alert(Alert.AlertType.ERROR, "La contraseña no es valida", ButtonType.OK).showAndWait();
-
+            Optional<ButtonType> confirmar8 = new Alert(Alert.AlertType.ERROR, "Contraseña no valida", ButtonType.OK).showAndWait();
+            if (confirmar8.get() == ButtonType.OK) {
+                lblPasswd.setStyle("-fx-text-fill:red");;
+            }
             //Se comprueba que los dos campos de contraseña tengan el mismo texto.
         } else if (!pfPass.getText().equalsIgnoreCase(pfPass2.getText())) {
             //Si no lo son, se muestra un mensaje.
-            new Alert(Alert.AlertType.ERROR, "La contraseña no es igual en los dos campos", ButtonType.OK).showAndWait();
+
+            Optional<ButtonType> confirmar9 = new Alert(Alert.AlertType.ERROR, "Contraseñas diferentes", ButtonType.OK).showAndWait();
+            if (confirmar9.get() == ButtonType.OK) {
+                lblPasswd.setStyle("-fx-text-fill:red");
+                lblPasswd2.setStyle("-fx-text-fill:red");
+            }
 
             //Se comprueba si el código postal tiene 5 números.
         } else if (tfZip.getText().length() != 5 || !tfZip.getText().matches("\\d+")) {
             //Si no tiene 5 números se muestra un mensaje.
-            new Alert(Alert.AlertType.ERROR, "Codigo Postal Incorrecto", ButtonType.OK).showAndWait();
+
+            Optional<ButtonType> confirmar0 = new Alert(Alert.AlertType.ERROR, "codigo postal incorrecto", ButtonType.OK).showAndWait();
+            if (confirmar0.get() == ButtonType.OK) {
+                lblZip.setStyle("-fx-text-fill:red");
+            }
 
             //Se comprueban los requisitos del email.
         } else if (!tfCorreo.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$")) {
-            //Si no los cumple se muestra un mensaje.
-            new Alert(Alert.AlertType.ERROR, "Ese correo electronico no es valido", ButtonType.OK).showAndWait();
-
+            //Si no los cumple se muestra un mensaje.    
+            Optional<ButtonType> confirmar11 = new Alert(Alert.AlertType.ERROR, "Correo no valido", ButtonType.OK).showAndWait();
+            if (confirmar11.get() == ButtonType.OK) {
+                lblCorreo.setStyle("-fx-text-fill:red");
+            }
             //Si todo ha sido correcto, se crea el Message que se va a mandar al servidor.
         } else {
             //Se cargan los datos de los campos de texto en el User.
@@ -266,7 +371,9 @@ public class SignUpWindowController implements Initializable {
 
         }
     }
-
+    
+    
+    
     /**
      * Cierra la aplicación cuando le haces clic en el botón de salir.
      *
@@ -469,7 +576,13 @@ public class SignUpWindowController implements Initializable {
         //cambiar el boolean oscuro a false
         oscuro=false;
     }
-    
+    private String ponerAsterisco(String nombre) {
+        String ultimo = nombre.substring(nombre.length() - 1);
+        if (!ultimo.equalsIgnoreCase("*")) {
+            nombre=(nombre + " *");
+        }
+        return nombre;
+    }
     /**
      * sirve para al ver contraseña pasar la informacion
      * @param event 
@@ -506,6 +619,7 @@ public class SignUpWindowController implements Initializable {
             stage.setOnCloseRequest(this::closeAppFromX);
         });
           
+       
         //Se crean los tooltips para todos los campos de texto.
         Tooltip tooltip = new Tooltip("Nombre y nos apellidos");
         tfNombre.setTooltip(tooltip);
@@ -542,5 +656,98 @@ public class SignUpWindowController implements Initializable {
         btnVerPass2.setOnAction(this::verPass2);
         btnSignUp.setOnAction(this::signUp);
         hlTienes.setOnAction(this::irSignIn);
+        
+        tfNombre.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    if (tfNombre.getText().equals("")) {
+                        lblNombre.setStyle("-fx-text-fill:red");
+                        lblNombre.setText(ponerAsterisco(lblNombre.getText()));
+                    }
+
+                }
+
+            }
+        });
+        tfCorreo.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    if (tfCorreo.getText().equals("")) {
+                        lblCorreo.setStyle("-fx-text-fill:red");
+                        lblCorreo.setText(ponerAsterisco(lblCorreo.getText()));
+                    } else if (!tfCorreo.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$")) {
+                        //S
+                        lblCorreo.setStyle("-fx-text-fill:red");
+                    }
+                }
+            }
+        });
+        tfCiudad.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    if (tfCiudad.getText().equals("")) {
+                        lblCiudad.setStyle("-fx-text-fill:red");
+                        lblCiudad.setText(ponerAsterisco(lblCiudad.getText()));
+                    }
+                }
+            }
+        });
+        tfCalle.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    if (tfCalle.getText().equals("")) {
+                        lblCalle.setStyle("-fx-text-fill:red");
+                        lblCalle.setText(ponerAsterisco(lblCalle.getText()));
+                    }
+                }
+            }
+        });
+        tfZip.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    if (tfZip.getText().equals("")) {
+                        lblZip.setStyle("-fx-text-fill:red");
+                        lblZip.setText(ponerAsterisco(lblZip.getText()));
+                    } else if (tfZip.getText().length() != 5 || !tfZip.getText().matches("\\d+")) {
+                        //Si no tiene 5 números se muestra un mensaje.
+                        lblZip.setStyle("-fx-text-fill:red");
+                    }
+                }
+            }
+        });
+        pfPass.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    if (pfPass.getText().equals("")) {
+                        lblPasswd.setStyle("-fx-text-fill:red");
+                        lblPasswd.setText(ponerAsterisco(lblPasswd.getText()));
+                    } else if (!pfPass.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
+                        //Si no es válida se muestra un mensaje.
+                        lblPasswd.setStyle("-fx-text-fill:red");
+                    }
+                }
+            }
+        });
+         pfPass2.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    if (pfPass2.getText().equals("")) {
+                        lblPasswd2.setStyle("-fx-text-fill:red");
+                        lblPasswd2.setText(ponerAsterisco(lblPasswd2.getText()));
+                    } else if (!pfPass2.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")) {
+                        //Si no es válida se muestra un mensaje.
+                        lblPasswd2.setStyle("-fx-text-fill:red");
+                    }
+                }
+            }
+        });
+
     }
 }

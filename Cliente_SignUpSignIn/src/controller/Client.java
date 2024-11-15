@@ -24,6 +24,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * La clase Client implementa la interfaz Signable y es la encargada de
@@ -85,12 +87,7 @@ public class Client implements Signable {
     @Override
     public User signIn(User user) throws InternalServerErrorException, LogInDataException, NoConnectionsAvailableException, UserNotActiveException, ServerClosedException {
         try {
-            //Establece la conexión con el servidor con la IP y el puerto.
-            socket = new Socket(ip, puerto);
-
-            //Inicializa los flujos de entrada y salida para enviar y recoger datos.
-            entrada = new ObjectInputStream(socket.getInputStream());
-            salida = new ObjectOutputStream(socket.getOutputStream());
+            abrirSocket();
 
             Message mensaje = new Message();
             
@@ -108,37 +105,12 @@ public class Client implements Signable {
 
             //Lee el mensaje enviado por el servidor y comprueba si ha devuelto 
             //algun mensaje de error, dependiendo del mensaje lanza una excepción u otra.
-            switch (mensaje.getRequest()) {
-                case INTERNAL_EXCEPTION:
-                    throw new InternalServerErrorException();
-                case LOG_IN_EXCEPTION:
-                    throw new LogInDataException();
-                case CONNECTIONS_EXCEPTION:
-                    throw new NoConnectionsAvailableException();
-                case USER_NOT_ACTIVE_EXCEPTION:
-                    throw new UserNotActiveException();
-            }
+            controlException(mensaje);
             //Si sucede algún otro error se lanza la excepción InternalServerErrorException.
         } catch (IOException | ClassNotFoundException e) {
             throw new ServerClosedException();
         } finally {
-            try {
-                //Se cierra la conexión y los flujos de salida y entrada.
-                if (socket != null) {
-                    socket.close();
-                }
-                if (entrada != null) {
-                    entrada.close();
-                }
-                if (salida != null) {
-                    salida.close();
-                }
-                //Si sucede algún error al cerrar las conexiones se lanza la 
-                //excepción InternalServerErrorException.
-            } catch (IOException e) {
-                throw new InternalServerErrorException();
-            }
-
+          cerrarCOnexiones();
         }
         //Si todo ha ido correctamente, es decir, si en el mensaje del servidor 
         //no devuelto ningún error, se devuelve el mismo User enviado.
@@ -171,12 +143,8 @@ public class Client implements Signable {
     public User signUp(User user) throws InternalServerErrorException, UserExitsException, NoConnectionsAvailableException, ServerClosedException {
         try {
             //Establece la conexión con el servidor con la IP y el puerto.
-            socket = new Socket(ip, puerto);
-
-            //Inicializa los flujos de entrada y salida para enviar y recoger datos.
-            entrada = new ObjectInputStream(socket.getInputStream());
-            salida = new ObjectOutputStream(socket.getOutputStream());
             
+            abrirSocket();
             Message mensaje = new Message();
             
             //Se añade el User creado al Message.
@@ -193,19 +161,33 @@ public class Client implements Signable {
 
             //Lee el mensaje enviado por el servidor y comprueba si ha devuelto 
             //algun mensaje de error, dependiendo del mensaje lanza una excepción u otra.
-            switch (mensaje.getRequest()) {
-                case INTERNAL_EXCEPTION:
-                    throw new InternalServerErrorException();
-                case USER_EXISTS_EXCEPTION:
-                    throw new UserExitsException();
-                case CONNECTIONS_EXCEPTION:
-                    throw new NoConnectionsAvailableException();
-            }
+            controlException(mensaje);
             //Si sucede algún otro error se lanza la excepción InternalServerErrorException.
         } catch (IOException | ClassNotFoundException e) {
             throw new ServerClosedException();
         } finally {
-            try {
+            cerrarCOnexiones();
+        }
+        //Si todo ha ido correctamente, es decir, si en el mensaje del servidor 
+        //no devuelto ningún error, se devuelve el mismo User enviado.
+        return user;
+
+    }
+    
+    
+    private void abrirSocket(){
+        try {
+            socket = new Socket(ip, puerto);
+            
+            //Inicializa los flujos de entrada y salida para enviar y recoger datos.
+            entrada = new ObjectInputStream(socket.getInputStream());
+            salida = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void cerrarCOnexiones() throws InternalServerErrorException{
+        try {
                 //Se cierra la conexión y los flujos de salida y entrada.
                 if (socket != null) {
                     socket.close();
@@ -221,12 +203,25 @@ public class Client implements Signable {
             } catch (IOException e) {
                 throw new InternalServerErrorException();
             }
-
+    }
+    private void controlException(Message mensaje ){
+        try {
+            switch (mensaje.getRequest()) {
+                case INTERNAL_EXCEPTION:
+                    throw new InternalServerErrorException();
+                case USER_EXISTS_EXCEPTION:
+                    throw new UserExitsException();
+                case CONNECTIONS_EXCEPTION:
+                    throw new NoConnectionsAvailableException();
+            }
+        } catch (UserExitsException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InternalServerErrorException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoConnectionsAvailableException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //Si todo ha ido correctamente, es decir, si en el mensaje del servidor 
-        //no devuelto ningún error, se devuelve el mismo User enviado.
-        return user;
-
+       
     }
 
 }

@@ -48,7 +48,7 @@
                             <children>
                                 <VBox>
                                     <children>
-                                        <Label text="Nombre y apellidos">
+                                        <Label fx:id="lblNombre" prefHeight="18.0" prefWidth="154.0" text="Nombre y apellido">
                                             <VBox.margin>
                                                 <Insets left="210.0" />
                                             </VBox.margin>
@@ -67,7 +67,7 @@
                                 </VBox>
                                 <VBox layoutX="10.0" layoutY="9.0">
                                     <children>
-                                        <Label text="Correo electrónico">
+                                        <Label fx:id="lblCorreo" prefHeight="18.0" prefWidth="150.0" text="Correo electrónico">
                                             <VBox.margin>
                                                 <Insets left="210.0" />
                                             </VBox.margin>
@@ -86,7 +86,7 @@
                                 </VBox>
                                 <VBox layoutX="10.0" layoutY="99.0">
                                     <children>
-                                        <Label text="Ciudad">
+                                        <Label fx:id="lblCiudad" prefHeight="18.0" prefWidth="100.0" text="Ciudad">
                                             <VBox.margin>
                                                 <Insets left="210.0" />
                                             </VBox.margin>
@@ -105,7 +105,7 @@
                                 </VBox>
                                 <VBox layoutX="10.0" layoutY="127.0">
                                     <children>
-                                        <Label text="Calle">
+                                        <Label fx:id="lblCalle" prefHeight="18.0" prefWidth="62.0" text="Calle">
                                             <VBox.margin>
                                                 <Insets left="210.0" />
                                             </VBox.margin>
@@ -124,7 +124,7 @@
                                 </VBox>
                                 <VBox layoutX="10.0" layoutY="173.0">
                                     <children>
-                                        <Label text="Código postal">
+                                        <Label fx:id="lblZip" prefHeight="18.0" prefWidth="115.0" text="Código postal">
                                             <VBox.margin>
                                                 <Insets left="210.0" />
                                             </VBox.margin>
@@ -143,7 +143,7 @@
                                 </VBox>
                                 <VBox>
                                     <children>
-                                        <Label text="Contraseña">
+                                        <Label fx:id="lblPasswd" prefHeight="18.0" prefWidth="101.0" text="Contraseña">
                                             <VBox.margin>
                                                 <Insets left="210.0" />
                                             </VBox.margin>
@@ -171,7 +171,7 @@
                                 </VBox>
                                 <VBox>
                                     <children>
-                                        <Label text="Repite la contraseña">
+                                        <Label fx:id="lblPasswd2" prefHeight="18.0" prefWidth="172.0" text="Repite la contraseña">
                                             <VBox.margin>
                                                 <Insets left="210.0" />
                                             </VBox.margin>
@@ -197,7 +197,7 @@
                                         </HBox>
                                     </children>
                                 </VBox>
-                                <CheckBox fx:id="cbActive" alignment="TOP_LEFT" mnemonicParsing="false" text="Usuario activo" selected="true"/>
+                                <CheckBox fx:id="cbActive" alignment="TOP_LEFT" mnemonicParsing="false" selected="true" text="Usuario activo" />
                                 <HBox alignment="CENTER">
                                     <children>
                                         <Label text="Tienes una cuenta?" />
